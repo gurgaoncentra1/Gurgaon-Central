@@ -432,7 +432,7 @@ function art(kind,k,label){var night=(kind==='garba'||kind==='concert'||kind==='
   return '<svg viewBox="0 0 400 260" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Illustration: '+(label||kind)+'"><rect width="400" height="260" fill="'+bg+'"/>'+SC[kind](k)+'</svg>'}
 function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
 function maps(q){return 'https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(q)}
-function card(o){return '<article class="card"><div class="pic'+(o.poster?' poster':'')+'"'+(o.imgBg?' style="background:'+o.imgBg+'"':'')+'>'+(o.img?'<img class="photo" src="'+o.img+'" alt="'+esc(o.imgAlt||o.title)+'" loading="lazy">':art(o.art,o.k||0,o.title))+'</div><div class="body"><div class="row-top"><span class="tag '+(o.tc||'t-sand')+'">'+esc(o.tag)+'</span>'+(o.extra||'')+'</div><h3>'+esc(o.title)+'</h3>'+(o.meta?'<p class="meta">'+esc(o.meta)+'</p>':'')+'<p>'+esc(o.text)+'</p>'+(o.stores?'<ul class="mini" aria-label="Stores">'+o.stores.map(function(x){return '<li>'+esc(x)+'</li>'}).join('')+'</ul>':'')+(o.addr?'<p class="addr">'+esc(o.addr)+'</p>':'')+(o.href?'<a class="more push" href="'+o.href+'" target="_blank" rel="noopener">'+(o.cta||'Open in Maps →')+'</a>':'')+(o.links?'<div class="lnks push">'+o.links.map(function(l){return '<a class="more" href="'+l[1]+'" target="_blank" rel="noopener">'+esc(l[0])+'</a>'}).join('')+'</div>':'')+'</div></article>'}
+function card(o){return '<article class="card"><div class="pic'+(o.poster?' poster':'')+'"'+(o.imgBg?' style="background:'+o.imgBg+'"':'')+'>'+(o.img?'<img class="photo" src="'+o.img+'" alt="'+esc(o.imgAlt||o.title)+'" loading="lazy">':art(o.art,o.k||0,o.title))+'</div><div class="body"><div class="row-top"><span class="tag '+(o.tc||'t-sand')+'">'+esc(o.tag)+'</span>'+(o.extra||'')+'</div><h3>'+esc(o.title)+'</h3>'+(o.meta?'<p class="meta">'+esc(o.meta)+'</p>':'')+'<p>'+esc(o.text)+'</p>'+(o.stores?'<ul class="mini" aria-label="Stores">'+o.stores.map(function(x){return '<li>'+esc(x)+'</li>'}).join('')+'</ul>':'')+(o.addr?'<p class="addr">'+esc(o.addr)+'</p>':'')+(o.href?'<a class="more push" href="'+o.href+'" target="_blank" rel="noopener">'+(o.cta||'Open in Maps →')+'</a>':'')+(o.links?'<div class="lnks push">'+o.links.map(function(l){return '<a class="more" href="'+l[1]+'"'+(l[1].charAt(0)==='#'?'':' target="_blank" rel="noopener"')+'>'+esc(l[0])+'</a>'}).join('')+'</div>':'')+'</div></article>'}
 
 /* ---------- data ---------- */
 var SHOPS=[
@@ -476,10 +476,10 @@ var NEWQ=[
  {art:"theatre",k:2,tag:"Closed",tc:"t-paper",title:"Kingdom of Dreams",meta:"Sector 29 · Sealed since July 2022",text:"India’s first live theatre and leisure complex. Sealed in July 2022 and not reopened.",links:[["News report ↗","https://www.tribuneindia.com/news/haryana/kingdom-of-dreams-sealed-in-gurugram-412870"]]}
 ];
 var NEWG=[
- {art:"forest",k:0,tag:"Urban forest",tc:"t-teal",title:"Aravalli Biodiversity Park",meta:"Free entry · 6–11 AM and 3–7 PM (one source says 9 AM–4 PM)",text:"A former mining site restored into a forest, with a butterfly park. India’s first IUCN-named OECM.",links:[["Details ↗","https://housing.com/news/gurgaon-places-to-visit-and-things-to-do"]]},
- {art:"lake",k:1,tag:"Wildlife",tc:"t-sand",title:"Sultanpur National Park",meta:"7 AM – 4:30 PM · Closed Tuesdays · ₹5 per person, ₹50 per DSLR · about 16 km from Gurugram",text:"A lake-centred bird sanctuary and Ramsar site with 320+ species. Best in winter.",links:[["Guide ↗","https://roundglasssustain.com/habitats/sultanpur-guide"]]},
- {art:"lake",k:2,tag:"Lake",tc:"t-coral",title:"Damdama Lake",meta:"Free entry · Boating 9:30 AM – 6 PM · Sohna, about 20 km from Gurgaon",text:"A 3,000-acre lake against the Aravalli hills. Best in the monsoon.",links:[["Details ↗","https://tripxl.com/blog/?p=116120"]]},
- {art:"forest",k:3,tag:"City park",tc:"t-paper",title:"Leisure Valley Park",meta:"5 AM – 10 PM · Free entry",text:"A large city park that comes alive in the evening.",links:[["Details ↗","https://yometro.com/hi/travel-guide/best-places-to-visit-in-july-in-gurgaon"]]},
+ {art:"forest",k:0,tag:"Urban forest",tc:"t-teal",title:"Aravalli Biodiversity Park",meta:"Free entry · 6–11 AM and 3–7 PM (one source says 9 AM–4 PM)",text:"A former mining site restored into a forest, with a butterfly park. India’s first IUCN-named OECM."},
+ {art:"lake",k:1,tag:"Wildlife",tc:"t-sand",title:"Sultanpur National Park",meta:"7 AM – 4:30 PM · Closed Tuesdays · ₹5 per person, ₹50 per DSLR · about 16 km from Gurugram",text:"A lake-centred bird sanctuary and Ramsar site with 320+ species. Best in winter.",links:[["Haryana Tourism ↗","https://haryanatourism.gov.in/places_of_interest/sultanpur-bird-sanctuary/"]]},
+ {art:"lake",k:2,tag:"Lake",tc:"t-coral",title:"Damdama Lake",meta:"Free entry · Boating 9:30 AM – 6 PM · Sohna, about 20 km from Gurgaon",text:"A 3,000-acre lake against the Aravalli hills. Best in the monsoon.",links:[["Website ↗","https://damdamalake.com/"]]},
+ {art:"forest",k:3,tag:"City park",tc:"t-paper",title:"Leisure Valley Park",meta:"5 AM – 10 PM · Free entry",text:"A large city park that comes alive in the evening.",links:[["Open in Maps →","https://www.google.com/maps/dir//Leisure+Valley+Park,+287,+NH+8,+Sector+29,+Gurugram,+Haryana+122009/@12.9421028,77.7795364,15z/data=!4m8!4m7!1m0!1m5!1m1!1s0x390d18fd0555556f:0x22cf7763f61d5387!2m2!1d77.0661742!2d28.4697441?entry=ttu&g_ep=EgoyMDI2MTAxMy4wIKXMDSoASAFQAw%3D%3D"]]},
  {img:GEMIMG1,imgAlt:'Owl perched on a rock at Bhondsi Nature Park',art:"forest",k:4,tag:"See above",tc:"t-sand",title:"Bhondsi Nature Park",meta:"5 AM – 9:30 PM · ₹30 entry (one source)",text:"Featured above. ₹30 entry, open until 9:30 PM.",links:[["Open in Maps →",maps('Bhondsi Nature Park Gurugram')]]}
 ];
 var NEWT=[
@@ -497,13 +497,13 @@ var NEWT=[
 var ROUTES=[
  {id:'home',label:'Home'},
  {id:'shopping',label:'Shopping',bg:'var(--coral)',fg:'var(--ink)',eyebrow:'Page 1',title:'Shopping',tag:'Retail therapy, but make it Gurgaon.',hand:'six spots, zero boring ones',tile:'mall',stk:['jhumka','bangles'],blurb:'Malls, markets and flea finds.',tc:T},
- {id:'education',label:'Education',bg:'var(--sand)',fg:'var(--ink)',eyebrow:'Page 2',title:'Education',tag:'Campus lore, ranked by vibes and placements.',hand:'study era unlocked',tile:'tower',stk:['shades','sparkle'],blurb:'B-schools and big green campuses.',tc:S},
- {id:'food',label:'Food',bg:'var(--coral)',fg:'var(--ink)',eyebrow:'Page 3',title:'Food',tag:'Eat. Post. Repeat.',hand:'pakoda first, craft beer later',tile:'stall',stk:['chai','samosa'],blurb:'Pakodas, cafés and craft beer.',tc:PK},
+ {id:'food',label:'Food',bg:'var(--coral)',fg:'var(--ink)',eyebrow:'Page 2',title:'Food',tag:'Eat. Post. Repeat.',hand:'pakoda first, craft beer later',tile:'stall',stk:['chai','samosa'],blurb:'Pakodas, cafés and craft beer.',tc:PK},
+ {id:'education',label:'Education',bg:'var(--sand)',fg:'var(--ink)',eyebrow:'Page 3',title:'Education',tag:'Campus lore, ranked by vibes and placements.',hand:'study era unlocked',tile:'tower',stk:['shades','sparkle'],blurb:'B-schools and big green campuses.',tc:S},
  {id:'gems',label:'Hidden gems',bg:'var(--navy)',fg:'var(--paper)',eyebrow:'Page 4',title:'Hidden gems',tag:'Off the algorithm. Older than the skyline.',hand:'no crowds, big lore',tile:'stepwell',stk:['nazar','diya'],blurb:'Stepwells, forts and old shops.',tc:MI},
  {id:'events',label:'Events',bg:'var(--sand)',fg:'var(--ink)',eyebrow:'Page 5',title:'Events',tag:'Your calendar called. It wants garba.',hand:'dates change every year!',tile:'garba',stk:['marigold','kite'],blurb:'Navratri nights, gigs and shows.',tc:L},
- {id:'plan',label:'Plan a day',bg:'var(--teal)',fg:'var(--ink)',eyebrow:'Page 6',title:'Plan a day',tag:'Tell us the vibe. We build the day.',hand:'your day, your pace',tile:'pin',stk:['auto','sparkle'],blurb:'Tell us your mood and we’ll build a one-day plan of places to visit.',tc:T},
- {id:'travel',label:'Travel',bg:'var(--sand)',fg:'var(--ink)',eyebrow:'Page 7',title:'Travel',tag:'Get around like you live here.',hand:'metro, cab or auto?',tile:'metro',stk:['auto','kite'],blurb:'Getting around and sample days.',tc:T},
- {id:'quests',label:'Side quests',bg:'var(--coral)',fg:'var(--ink)',eyebrow:'Page 8',title:'Side quests',tag:'Detours worth taking.',hand:'pick one this weekend',tile:'pin',stk:['bracelet','sparkle'],blurb:'Rails, escape rooms and go-karts.',tc:PK},
+ {id:'quests',label:'Side quests',bg:'var(--coral)',fg:'var(--ink)',eyebrow:'Page 6',title:'Side quests',tag:'Detours worth taking.',hand:'pick one this weekend',tile:'pin',stk:['bracelet','sparkle'],blurb:'Rails, escape rooms and go-karts.',tc:PK},
+ {id:'plan',label:'Plan a day',bg:'var(--teal)',fg:'var(--ink)',eyebrow:'Page 7',title:'Plan a day',tag:'Tell us the vibe. We build the day.',hand:'your day, your pace',tile:'pin',stk:['auto','sparkle'],blurb:'Tell us your mood and we’ll build a one-day plan of places to visit.',tc:T},
+ {id:'travel',label:'Travel',bg:'var(--sand)',fg:'var(--ink)',eyebrow:'Page 8',title:'Travel',tag:'Get around like you live here.',hand:'metro, cab or auto?',tile:'metro',stk:['auto','kite'],blurb:'Getting around and sample days.',tc:T},
  {id:'tip',label:'Share a tip',bg:'var(--sand)',fg:'var(--ink)',eyebrow:'Page 9',title:'Share a tip',tag:'Drop the pin. Local knowledge wins.',hand:'the best finds come from you',tile:'pin',stk:['nazar','auto'],blurb:'Know a spot we missed? Tell us.',tc:L}
 ];
 function phero(r){return '<section class="phero" style="--pg-bg:'+r.bg+';--pg-fg:'+r.fg+'"><div class="wrap"><span class="sticker">'+r.eyebrow+' of 9</span><h1>'+r.title+'</h1><p class="tagline">'+r.tag+'</p><span class="hand">'+r.hand+'</span>'+stk(r.stk[0],'deco d1 bob','right:2%;top:-4px;--s:120px;--r:10deg')+stk(r.stk[1],'deco d2','right:170px;bottom:-18px;--s:84px;--r:-12deg')+'</div></section>'}
@@ -525,11 +525,25 @@ education:function(){
  return page('education','<div class="stat"><strong>₹24.2 LPA</strong><span>median package reported for MDI Gurgaon</span></div><h2 class="sub">Business schools</h2><div class="cards">'+EDU.b.map(card).join('')+'</div><h2 class="sub" style="margin-top:56px">Universities</h2><div class="cards">'+EDU.u.map(card).join('')+'</div>')},
 food:function(){
  return page('food','<p class="lede">Start with hot pakoras in Old Gurgaon and end with craft beer under the lights of an open-air market.</p><div class="cards">'+[
-  {art:'stall',tag:'Street food',tc:'t-sand',title:'Sadar Bazaar lanes',meta:'8 AM – 10 PM · Roshan Pura, Old Gurgaon',text:"Old Gurgaon's wholesale market is also its best snack stop. Gandhi Ji Pakoda Wale is the name to look for while you shop for utensils and home goods.",href:maps('Gandhi Ji Pakoda Wale Sadar Bazar Gurugram')},
-  {art:'brew',k:1,tag:'Cafés & microbreweries',tc:'t-coral',title:'Galleria Market',meta:'11 AM – 10:30 PM · Closed Tuesdays · DLF Phase 4',text:'Cobbled paths, bookstores and salons, with cafés and microbreweries tucked between the boutiques. Good for a slow evening.',href:maps('Galleria Market DLF Phase 4 Gurugram')},
+  {art:'stall',tag:'Street food',tc:'t-sand',title:'Sadar Bazaar lanes',meta:'8 AM – 10 PM · Roshan Pura, Old Gurgaon',text:"Old Gurgaon's wholesale market is also its best snack stop, known for kebabs and desi street food. Gandhi Ji Pakoda Wale is the name to look for while you shop for utensils and home goods.",href:maps('Gandhi Ji Pakoda Wale Sadar Bazar Gurugram'),links:[['Gandhi Ji Pakoda Wale in Shopping →','#shopping']]},
+  {art:'brew',k:1,tag:'Cafés & microbreweries',tc:'t-coral',title:'Galleria Market',meta:'11 AM – 10:30 PM · Closed Tuesdays · DLF Phase 4',text:'Cobbled paths, high-end boutiques, bookstores and salons, with quirky cafés, microbreweries and street food with a modern twist tucked in between. Good for a slow evening.',href:maps('Galleria Market DLF Phase 4 Gurugram')},
   {art:'grocer',k:2,tag:'Gourmet',tc:'t-teal',title:'Le Marche, Galleria',meta:'Sector 28, DLF Phase IV',text:'A gourmet grocery store inside Galleria Market. Stop in for specialty ingredients before or after dinner.',href:maps('Le Marche Galleria Market Gurugram')},
-  {art:'court',k:3,tag:'Dine & hang out',tc:'t-paper',title:'Ambience Mall food courts',meta:'10 AM – 10 PM · NH-8, DLF Phase 3',text:'Ambience puts fashion, food and entertainment under one roof, which makes it an easy pick for a family day out.',href:maps('Ambience Mall Gurugram')}
- ].map(card).join('')+'</div><p class="note">Know a food spot that belongs here? Add it on the Share a tip page.</p>')},
+  {art:'court',k:3,tag:'Dine & hang out',tc:'t-paper',title:'Ambience Mall food courts',meta:'10 AM – 10 PM · NH-8, DLF Phase 3',text:'Ambience puts fashion, food and entertainment under one roof, which makes it an easy pick for a family day out.',href:maps('Ambience Mall Gurugram')},
+  {art:'stall',k:1,tag:'Street food',tc:'t-coral',title:'Sector 14 Market',meta:'Sector 14',text:'A haven for chaat lovers.'},
+  {art:'tower',k:2,tag:'Street food',tc:'t-teal',title:'Cyber Hub',meta:'DLF Cyber City',text:'Budget-friendly joints serving global flavours like tacos and burgers.'},
+  {art:'court',k:4,tag:'Street food',tc:'t-sand',title:'Tau Devi Lal Stadium',text:'Stalls serving local delicacies at low prices.'},
+  {art:'bazaar',k:2,tag:'Street food',tc:'t-paper',title:'Gurgaon Haat',text:'Handicrafts, ethnic wear and local food in one place.'},
+  {art:'daily',k:3,tag:'Street food tips',tc:'t-coral',title:'Street food cheat sheet',meta:'About ₹100 per item on average',text:'Order chole bhature, golgappas, kebabs, tikki chaat and dahi bhalla. Evenings and after 9 PM are best. Stalls are densest around Cyber Hub, Sector 29, DLF Phase 1, Sikanderpur and MG Road.'}
+ ].map(card).join('')+'</div><h2 class="sub" style="margin-top:56px">Chole bhature for breakfast</h2><p class="lede">Five popular local picks, from street-style to sit-down.</p>'+cardsOf([
+  {art:'stall',k:4,tag:'Breakfast',tc:'t-sand',title:'Civil Lines Wale Chole Bhature',meta:'Sector 14',text:'The street-style pick.'},
+  {art:'stall',k:0,tag:'Breakfast',tc:'t-teal',title:'Gopal Ji Chole Bhature',meta:'Sector 31',text:'Best for paneer lovers and big appetites.'},
+  {art:'daily',k:1,tag:'Sit-down',tc:'t-paper',title:'Sit-down chole bhature',text:"Comfortable seating at three well-known names.",stores:['Om Sweets','Bikanervala',"Haldiram's"]}
+ ])+'<h2 class="sub" style="margin-top:56px">Cafés and brunch</h2><p class="lede">Slow mornings, quirky interiors and a few good beers.</p>'+cardsOf([
+  {art:'brew',k:3,tag:'Café',tc:'t-coral',title:'Social',meta:'Cyber Hub',text:'Quirky vibes, great coffee and Instagrammable interiors.'},
+  {art:'brew',k:0,tag:'Café',tc:'t-sand',title:'Café Delhi Heights',meta:'Ambience Mall',text:'Comfort food with a twist.'},
+  {art:'brew',k:2,tag:'Modern Indian',tc:'t-teal',title:'Farzi Café',meta:'Cyber Hub',text:'Modern Indian cuisine with a molecular twist.'},
+  {art:'brew',k:4,tag:'Beer café',tc:'t-paper',title:'The Beer Café',meta:'Sector 29',text:'For beer lovers.'}
+ ])+'<p class="note">Know a food spot that belongs here? Add it on the Share a tip page.</p>')},
 gems:function(){
  return page('gems','<p class="lede">Museums, nature parks and old Mughal-era towns that most people skip on the way to the mall.</p><div class="cards">'+[
   {img:MUSEOIMG,imgAlt:'Camera exhibits at the Museo Camera Centre for the Photographic Arts',art:'camera',k:4,tag:'Museum',tc:'t-teal',title:'Museo Camera Centre for the Photographic Arts',text:"A museum of vintage cameras and photographs, with a café and open-air library.",addr:'Shri Ganesh Mandir Marg, Sector 28, DLF Phase IV, Gurugram, Haryana 122009',href:'https://www.museocamera.org/',cta:'Visit website →'},
@@ -557,10 +571,7 @@ events:function(){
  ].map(card).join('')+'</div>')},
 plan:function(){return page('plan',planHTML())},
 travel:function(){
- return page('travel','<div class="cards">'+[
-  {art:'metro',tag:'By metro',tc:'t-teal',title:'Rapid Metro + Yellow Line',text:'The Delhi Metro Yellow Line and the Rapid Metro connect many of the places in this guide. Fast, cheap and AC.'},
-  {art:'auto',k:1,tag:'By auto',tc:'t-sand',title:'Auto-rickshaws',text:'The classic way to reach Old Gurgaon lanes and bazaars. Agree on the fare or use the meter before you start.'}
- ].map(card).join('')+'</div><h2 class="sub" style="margin-top:56px">Metro, cabs, buses and more</h2><p class="lede">Timings and fares change, so check the official sites before you go.</p>'+cardsOf(NEWT))},
+ return page('travel','<h2 class="sub">Metro, cabs, buses and more</h2><p class="lede">Timings and fares change, so check the official sites before you go.</p>'+cardsOf(NEWT))},
 quests:function(){
  return page('quests','<p class="lede">Rails, escape rooms, go-karts and a few quiet detours. Check timings and prices before you head out.</p>'+cardsOf(NEWQ))},
 tip:function(){
@@ -881,7 +892,7 @@ function initTip(){document.getElementById('tip-form').addEventListener('submit'
 
 /* ---------- router ---------- */
 var app=document.getElementById('app'),menu=document.getElementById('menu');
-menu.innerHTML=ROUTES.filter(function(r){return r.id!=='quests'}).map(function(r){return '<a href="#'+r.id+'" data-id="'+r.id+'">'+r.label+'</a>'}).join('');
+menu.innerHTML=ROUTES.map(function(r){return '<a href="#'+r.id+'" data-id="'+r.id+'">'+r.label+'</a>'}).join('');
 var word=['Shop','Eat','Explore','Learn','Wander','Repeat'].map(function(w){return '<span>'+w+' ✦</span>'}).join('');
 document.getElementById('track').innerHTML=word+word+word+word;
 function route(){var id=(location.hash||'#home').slice(1),jump=null;if(id==='map-section'){jump=id;id='home'}var r=ROUTES.find(function(x){return x.id===id})||ROUTES[0];
