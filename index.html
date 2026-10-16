@@ -695,7 +695,7 @@ var BLOGS=[
 ];
 function blogHost(u){if(!/^https?:\/\//i.test(u||''))return '';try{return new URL(u).hostname.replace(/^www\./,'')}catch(e){return ''}}
 function blogSection(){
- return '<section class="wrap section" id="blogs"><h2 class="sub">Our blogs</h2><p class="lede">Longer reads from us, hosted on our own blogs.</p><div class="cards">'+BLOGS.map(function(b,i){var l=[];if(blogHost(b.url))l.push(['Read on the blog ↗',b.url]);if(blogHost(b.quora))l.push(['Read on Quora ↗',b.quora]);return card({img:b.img,imgAlt:b.imgAlt,art:b.art||'pin',k:b.k||i,tag:b.tag||'Blog',tc:b.tc||(i%2?'t-sand':'t-teal'),title:b.title,text:b.text,links:l.length?l:null})}).join('')+'</div></section>'}
+ return '<section class="wrap section" id="blogs"><h2 class="sub">Our blogs</h2><p class="lede">Longer reads from us, hosted on our own blogs.</p><div class="cards">'+BLOGS.map(function(b,i){var l=[];if(blogHost(b.url))l.push(['Read on BlogSpot ↗',b.url]);if(blogHost(b.quora))l.push(['Read on Quora ↗',b.quora]);return card({img:b.img,imgAlt:b.imgAlt,art:b.art||'pin',k:b.k||i,tag:b.tag||'Blog',tc:b.tc||(i%2?'t-sand':'t-teal'),title:b.title,text:b.text,links:l.length?l:null})}).join('')+'</div></section>'}
 
 /* ---------- day planner ---------- */
 var PL_DOW=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'],PL_MON=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
