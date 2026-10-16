@@ -511,18 +511,16 @@ function page(id,inner){var r=ROUTES.find(function(x){return x.id===id});return 
 
 var FOOD=[
   {group:'street',art:'stall',tag:'Street food',tc:'t-sand',title:'Sadar Bazaar lanes',meta:'8 AM – 10 PM · Roshan Pura, Old Gurgaon',text:"Old Gurgaon's wholesale market is also its best snack stop, known for kebabs and desi street food. Gandhi Ji Pakoda Wale is the name to look for while you shop for utensils and home goods.",href:maps('Gandhi Ji Pakoda Wale Sadar Bazar Gurugram')},
-  {group:'street',art:'stall',k:1,tag:'Street food',tc:'t-coral',title:'Sector 14 Market',meta:'Sector 14',text:'A haven for chaat lovers.'},
-  {group:'street',art:'tower',k:2,tag:'Street food',tc:'t-teal',title:'Cyber Hub',meta:'DLF Cyber City',text:'Budget-friendly joints serving global flavours like tacos and burgers.'},
-  {group:'street',art:'court',k:4,tag:'Street food',tc:'t-sand',title:'Tau Devi Lal Stadium',text:'Stalls serving local delicacies at low prices.'},
-  {group:'street',art:'daily',k:3,tag:'Street food tips',tc:'t-coral',title:'Street food cheat sheet',meta:'About ₹100 per item on average',text:'Order chole bhature, golgappas, kebabs, tikki chaat and dahi bhalla. Evenings and after 9 PM are best. Stalls are densest around Cyber Hub, Sector 29, DLF Phase 1, Sikanderpur and MG Road.'},
-  {group:'breakfast',art:'stall',k:4,tag:'Breakfast',tc:'t-sand',title:'Civil Lines Wale Chole Bhature',meta:'Sector 14',text:'The street-style pick.'},
-  {group:'breakfast',art:'stall',k:0,tag:'Breakfast',tc:'t-teal',title:'Gopal Ji Chole Bhature',meta:'Sector 31',text:'Best for paneer lovers and big appetites.'},
-  {group:'breakfast',art:'daily',k:1,tag:'Sit-down',tc:'t-paper',title:'Sit-down chole bhature',text:"Comfortable seating at three well-known names.",stores:['Om Sweets','Bikanervala',"Haldiram's"]},
+  {group:'street',art:'stall',k:1,tag:'Street food',tc:'t-coral',title:'Sector 14 Market',meta:'Sector 14',text:'A haven for chaat lovers.',href:'https://maps.app.goo.gl/ukjjgBCxApFNrkxX8'},
+  {group:'street',art:'tower',k:2,tag:'Street food',tc:'t-teal',title:'Cyber Hub',meta:'DLF Cyber City',text:'Budget-friendly joints serving global flavours like tacos and burgers.',href:'https://maps.app.goo.gl/w4dXnPjugEXa7kXKA'},
+  {group:'street',art:'court',k:4,tag:'Street food',tc:'t-sand',title:'Tau Devi Lal Stadium',text:'Stalls serving local delicacies at low prices.',href:'https://maps.app.goo.gl/avzo6bga8da7wReD9'},
+  {group:'breakfast',art:'stall',k:4,tag:'Breakfast',tc:'t-sand',title:'Civil Lines Wale Chole Bhature',meta:'Sector 14',text:'The street-style pick.',href:'https://maps.app.goo.gl/Kk85o2hiQQGgUnpU8'},
+  {group:'breakfast',art:'daily',k:1,tag:'Sit-down',tc:'t-paper',title:"Haldiram's",text:'A comfortable sit-down spot for chole bhature.',href:'https://maps.app.goo.gl/idmaYr2AMJeHPY1D8'},
   {group:'cafe',art:'brew',k:1,tag:'Cafés & microbreweries',tc:'t-coral',title:'Galleria Market',meta:'11 AM – 10:30 PM · Closed Tuesdays · DLF Phase 4',text:'Cobbled paths, high-end boutiques, bookstores and salons, with quirky cafés, microbreweries and street food with a modern twist tucked in between. Good for a slow evening.',href:maps('Galleria Market DLF Phase 4 Gurugram')},
-  {group:'cafe',art:'brew',k:3,tag:'Café',tc:'t-coral',title:'Social',meta:'Cyber Hub',text:'Quirky vibes, great coffee and Instagrammable interiors.'},
-  {group:'cafe',art:'brew',k:0,tag:'Café',tc:'t-sand',title:'Café Delhi Heights',meta:'Ambience Mall',text:'Comfort food with a twist.'},
-  {group:'cafe',art:'brew',k:2,tag:'Modern Indian',tc:'t-teal',title:'Farzi Café',meta:'Cyber Hub',text:'Modern Indian cuisine with a molecular twist.'},
-  {group:'cafe',art:'brew',k:4,tag:'Beer café',tc:'t-paper',title:'The Beer Café',meta:'Sector 29',text:'For beer lovers.'},
+  {group:'cafe',art:'brew',k:3,tag:'Café',tc:'t-coral',title:'Social',meta:'Cyber Hub',text:'Quirky vibes, great coffee and Instagrammable interiors.',href:'https://maps.app.goo.gl/3DcGdGD1jdANnY5w9'},
+  {group:'cafe',art:'brew',k:0,tag:'Café',tc:'t-sand',title:'Café Delhi Heights',meta:'Ambience Mall',text:'Comfort food with a twist.',href:'https://maps.app.goo.gl/NwJc3RzXXbccxdsUA'},
+  {group:'cafe',art:'brew',k:2,tag:'Modern Indian',tc:'t-teal',title:'Farzi Café',meta:'Cyber Hub',text:'Modern Indian cuisine with a molecular twist.',href:'https://maps.app.goo.gl/RXqDLGwHwdYrh5gX8'},
+  {group:'cafe',art:'brew',k:4,tag:'Beer café',tc:'t-paper',title:'The Beer Café',meta:'Sector 29',text:'For beer lovers.',href:'https://maps.app.goo.gl/oqSoYpsr4m9eKHJ1A'},
   {group:'malls',art:'grocer',k:2,tag:'Gourmet',tc:'t-teal',title:'Le Marche, Galleria',meta:'Sector 28, DLF Phase IV',text:'A gourmet grocery store inside Galleria Market. Stop in for specialty ingredients before or after dinner.',href:maps('Le Marche Galleria Market Gurugram')},
   {group:'malls',art:'court',k:3,tag:'Dine & hang out',tc:'t-paper',title:'Ambience Mall food courts',meta:'10 AM – 10 PM · NH-8, DLF Phase 3',text:'Ambience puts fashion, food and entertainment under one roof, which makes it an easy pick for a family day out.',href:maps('Ambience Mall Gurugram')}
 ];
@@ -611,7 +609,6 @@ var PINS=[
  {id:'sec14',name:'Sector 14 Market',cat:'food',lat:28.4725,lng:77.0345,area:'Sector 14 · Chaat and chole bhature',todo:['Go for the chaat, a favourite with chaat lovers','Have breakfast at Civil Lines Wale Chole Bhature','Come in the evening for street food'],q:'Sector 14 Market Gurugram'},
  {id:'cyberfood',name:'Cyber Hub eats',cat:'food',lat:28.495,lng:77.089,area:'DLF Cyber City · Cafés and budget joints',todo:['Try budget-friendly joints serving tacos and burgers','Coffee and Instagrammable interiors at Social','Modern Indian with a molecular twist at Farzi Café'],q:'DLF Cyber Hub Gurugram'},
  {id:'tdl',name:'Tau Devi Lal Stadium',cat:'food',lat:28.433,lng:77.034,area:'Sector 38 · Local street food stalls',todo:['Eat local delicacies from the stalls','Prices are low, so it suits a budget evening'],q:'Tau Devi Lal Stadium Gurugram'},
- {id:'gopalji',name:'Gopal Ji Chole Bhature',cat:'food',lat:28.458,lng:77.052,area:'Sector 31 · Breakfast',todo:['Order chole bhature for a big breakfast','Best for paneer lovers and big appetites'],q:'Gopal Ji Chole Bhature Sector 31 Gurugram'},
  {id:'galfood',name:'Galleria cafés and microbreweries',cat:'food',lat:28.469,lng:77.089,area:'Galleria Market, DLF Phase 4 · 11 AM – 10:30 PM, closed Tuesdays',todo:['Settle into a café or microbrewery for the evening','Try street food with a modern twist','Pick up gourmet ingredients at Le Marche'],q:'Galleria Market DLF Phase 4 Gurugram'},
  {id:'delhiheights',name:'Café Delhi Heights',cat:'food',lat:28.5042,lng:77.0963,area:'Ambience Mall, NH-8 · Comfort food',todo:['Order comfort food with a twist','Pair it with a long day of shopping at Ambience'],q:'Cafe Delhi Heights Ambience Mall Gurugram'},
  {id:'beercafe',name:'The Beer Café',cat:'food',lat:28.4668,lng:77.07,area:'Sector 29',todo:['Come here for the beer','Stalls and bars around Sector 29 stay busy in the evening'],q:'The Beer Cafe Sector 29 Gurugram'}
