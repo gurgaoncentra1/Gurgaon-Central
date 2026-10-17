@@ -57,6 +57,7 @@ nav.menu a[aria-current="page"]{background:var(--teal);color:var(--ink);border-c
 .marquee{background:var(--ink);color:var(--paper);overflow:hidden;border-bottom:3px solid var(--stroke)}
 .track{display:flex;width:max-content;animation:scroll 32s linear infinite}
 .track span{padding:8px 20px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;font-size:.8rem;white-space:nowrap}
+.track .sep{letter-spacing:0;padding-left:6px;padding-right:6px}
 @keyframes scroll{to{transform:translateX(-50%)}}
 
 /* stickers & buttons */
@@ -944,7 +945,7 @@ function initTip(){document.getElementById('tip-form').addEventListener('submit'
 /* ---------- router ---------- */
 var app=document.getElementById('app'),menu=document.getElementById('menu');
 menu.innerHTML=ROUTES.map(function(r){return '<a href="#'+r.id+'" data-id="'+r.id+'">'+r.label+'</a>'}).join('');
-var word=['Shop','Eat','Explore','Learn','Wander','Repeat'].map(function(w){return '<span>'+w+' ✦</span>'}).join('');
+var word=['Shop','Eat','Explore','Learn','Wander','Repeat'].map(function(w){return '<span>'+w+'</span><span class="sep">✦</span>'}).join('');
 document.getElementById('track').innerHTML=word+word+word+word;
 function route(){var id=(location.hash||'#home').slice(1),jump=null;if(id==='map-section'){jump=id;id='home'}var r=ROUTES.find(function(x){return x.id===id})||ROUTES[0];
  app.innerHTML=PAGES[r.id]();
