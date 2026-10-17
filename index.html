@@ -97,7 +97,7 @@ nav.menu a[aria-current="page"]{background:var(--teal);color:var(--ink);border-c
 #blogs .card .pic{aspect-ratio:auto;height:clamp(110px,21vh,190px)}
 #blogs .card .body{padding:14px 18px 16px;gap:8px}
 #blogs .card .body h3{font-size:1.3rem}
-#blogs .card .body p{font-size:.95rem;display:-webkit-box;-webkit-line-clamp:9;-webkit-box-orient:vertical;overflow:hidden}
+#blogs .card .body p{font-size:.95rem;display:-webkit-box;-webkit-line-clamp:5;-webkit-box-orient:vertical;overflow:hidden}
 #tip-section .tip{grid-template-columns:repeat(3,minmax(0,1fr));padding:20px;gap:12px 14px}
 #tip-section .tip label:nth-of-type(4),#tip-section .tip .btn,#tip-section .tip #tip-result{grid-column:1/-1}
 #tip-section .tip textarea{min-height:clamp(60px,10vh,100px)}
@@ -731,7 +731,7 @@ var BLOGIMG3='data:image/webp;base64,UklGRtYJAQBXRUJQVlA4IMoJAQCQYQOdASoSAiADPm0
 var BLOGS=[
  {date:'2026-10-15',img:BLOGIMG1,imgAlt:'Terraced fort palace with gardens set against a hillside',title:'Gurgaon: A City of Contradictions',text:'Glass towers, dusty autos and chai tapris, and the layers of a city that never sleeps.',url:'https://gurgaoncentra1.blogspot.com/2026/10/gurgaon-city-of-contradictions.html',quora:'https://qr.ae/pFmsal',tag:'Blog'},
  {date:'2026-10-16',img:BLOGIMG2,imgAlt:'City skyline glowing at night under a purple sky',title:'Finding Home Away From Home',text:'From Chennai to Gurgaon at 18, a journey filled with fears, friendships and new beginnings. Three years later, Gurgaon is more than just a city - it\'s home.',url:'https://gurgaoncentra1.blogspot.com/2026/10/finding-home-away-from-home.html',quora:'https://qr.ae/pFmbRF',tag:'Blog'},
- {date:'2026-10-17',img:BLOGIMG3,imgAlt:'Pink sandstone arcade with carved scalloped arches and stone pillars',title:'Dear Gurgaon, you have a past too!',text:'Behind the skyscrapers and corporate hustle lies a city deeply connected to the Mahabharat. From Guru Dronacharya\'s legacy to ancient temples and fascinating local legends, Gurgaon holds stories that remind us that even the most modern cities have roots worth discovering.',url:'https://gurgaoncentra1.blogspot.com/2026/10/dear-gurgaon-you-have-past-too.html',quora:'https://qr.ae/pFmSQz',tag:'Blog'}
+ {date:'2026-10-17',img:BLOGIMG3,imgAlt:'Pink sandstone arcade with carved scalloped arches and stone pillars',title:'Dear Gurgaon, you have a past too!',text:'Behind the skyscrapers and corporate hustle lies a city tied to the Mahabharat, from Guru Dronacharya\'s legacy to ancient temples and local legends.',url:'https://gurgaoncentra1.blogspot.com/2026/10/dear-gurgaon-you-have-past-too.html',quora:'https://qr.ae/pFmSQz',tag:'Blog'}
 ];
 function blogHost(u){if(!/^https?:\/\//i.test(u||''))return '';try{return new URL(u).hostname.replace(/^www\./,'')}catch(e){return ''}}
 function blogCards(){
