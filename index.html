@@ -127,9 +127,9 @@ nav.menu a[aria-current="page"]{background:var(--teal);color:var(--ink);border-c
 .cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,300px),1fr));gap:26px}
 .card{display:flex;flex-direction:column;background:var(--surface);border:3px solid var(--stroke);border-radius:22px;box-shadow:7px 7px 0 var(--shadow);overflow:hidden;min-width:0;transition:transform .15s,box-shadow .15s}
 .card:hover{transform:translate(-3px,-3px) rotate(-.4deg);box-shadow:10px 10px 0 var(--shadow)}
-.card .pic{border-bottom:3px solid var(--stroke);aspect-ratio:400/260;background:var(--chip)}
+.card .pic{border-bottom:3px solid var(--stroke);aspect-ratio:400/260;background:var(--chip);position:relative;overflow:hidden}
 .card .pic svg{display:block;width:100%;height:100%}
-.pic img.photo{display:block;width:100%;height:100%;object-fit:cover}
+.pic img.photo{display:block;position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 .pic.poster{aspect-ratio:16/9}
 .pic.poster img.photo{object-fit:contain}
 .card .body{display:flex;flex-direction:column;gap:10px;padding:18px 20px 20px;flex:1}
