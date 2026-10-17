@@ -616,7 +616,7 @@ travel:function(){
 quests:function(){
  return page('quests','<p class="lede">Rails, escape rooms, go-karts and a few quiet detours. Check timings and prices before you head out.</p>'+cardsOf(NEWQ))},
 tip:function(){
- return page('tip','<div class="form-grid"><form class="tip" id="tip-form" novalidate><label for="t-name">Your name<input id="t-name" name="name" type="text" autocomplete="name" placeholder="Aarav"></label><label for="t-cat">Category<select id="t-cat" name="cat"><option>Shopping</option><option>Food</option><option>Hidden gem</option><option>Event</option><option>Scenery</option><option>Side quest</option></select></label><label for="t-spot">Place name and area<input id="t-spot" name="spot" type="text" placeholder="Example: Old stepwell, Badshahpur"></label><label for="t-why">Why should people go?<textarea id="t-why" name="why" placeholder="What makes it worth the trip?"></textarea></label><button class="btn" type="submit">Send my tip</button><p id="tip-result" role="status" aria-live="polite"></p></form><div class="tip-art">'+art('pin',0,'Map pin')+'</div></div>')}
+ return page('tip','<div class="form-grid"><form class="tip" id="tip-form" novalidate><input type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true" style="display:none"><label for="t-name">Your name<input id="t-name" name="name" type="text" autocomplete="name" placeholder="Aarav"></label><label for="t-cat">Category<select id="t-cat" name="cat"><option>Shopping</option><option>Food</option><option>Hidden gem</option><option>Event</option><option>Scenery</option><option>Side quest</option></select></label><label for="t-spot">Place name and area<input id="t-spot" name="spot" type="text" placeholder="Example: Old stepwell, Badshahpur"></label><label for="t-why">Why should people go?<textarea id="t-why" name="why" placeholder="What makes it worth the trip?"></textarea></label><button class="btn" type="submit">Send my tip</button><p id="tip-result" role="status" aria-live="polite">Your name is optional. Tips are reviewed before anything is added to the site.</p></form><div class="tip-art">'+art('pin',0,'Map pin')+'</div></div>')}
 };
 
 /* ---------- map ---------- */
@@ -715,7 +715,7 @@ function initMap(){
  if(window.ResizeObserver)new ResizeObserver(relayout).observe(mv);else window.addEventListener('resize',relayout);
  clear();relayout()}
 function tipSection(){
- return '<section class="wrap section" id="tip-section"><h2 class="sub">Share a tip</h2><p class="lede">Know a spot we missed? Drop the pin. Local knowledge wins.</p><div class="form-grid"><form class="tip" id="tip-form" novalidate><label for="t-name">Your name<input id="t-name" name="name" type="text" autocomplete="name" placeholder="Aarav"></label><label for="t-cat">Category<select id="t-cat" name="cat"><option>Shopping</option><option>Food</option><option>Hidden gem</option><option>Event</option><option>Side quest</option></select></label><label for="t-spot">Place name and area<input id="t-spot" name="spot" type="text" placeholder="Example: Old stepwell, Badshahpur"></label><label for="t-why">Why should people go?<textarea id="t-why" name="why" placeholder="What makes it worth the trip?"></textarea></label><button class="btn" type="submit">Send my tip</button><p id="tip-result" role="status" aria-live="polite"></p></form><div class="tip-art">'+art('pin',0,'Map pin')+'</div></div></section>'}
+ return '<section class="wrap section" id="tip-section"><h2 class="sub">Share a tip</h2><p class="lede">Know a spot we missed? Drop the pin. Local knowledge wins.</p><div class="form-grid"><form class="tip" id="tip-form" novalidate><input type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true" style="display:none"><label for="t-name">Your name<input id="t-name" name="name" type="text" autocomplete="name" placeholder="Aarav"></label><label for="t-cat">Category<select id="t-cat" name="cat"><option>Shopping</option><option>Food</option><option>Hidden gem</option><option>Event</option><option>Side quest</option></select></label><label for="t-spot">Place name and area<input id="t-spot" name="spot" type="text" placeholder="Example: Old stepwell, Badshahpur"></label><label for="t-why">Why should people go?<textarea id="t-why" name="why" placeholder="What makes it worth the trip?"></textarea></label><button class="btn" type="submit">Send my tip</button><p id="tip-result" role="status" aria-live="polite">Your name is optional. Tips are reviewed before anything is added to the site.</p></form><div class="tip-art">'+art('pin',0,'Map pin')+'</div></div></section>'}
 
 /* ---------- blogs ---------- */
 /* Newest post shows first: give each entry a date (YYYY-MM-DD). Edit this list to add blog posts. Each entry with a full https:// url becomes an outbound link. */
@@ -930,9 +930,16 @@ function initShop(){
   count.textContent='Showing '+list.length+' of '+SHOPS.length+' places'}
  document.getElementById('shop-filters').addEventListener('click',function(e){var b=e.target.closest('button[data-f]');if(!b)return;filter=b.getAttribute('data-f');document.querySelectorAll('#shop-filters button').forEach(function(x){x.setAttribute('aria-pressed',x===b?'true':'false')});render()});
  render()}
-function initTip(){document.getElementById('tip-form').addEventListener('submit',function(e){e.preventDefault();var f=e.target,name=f.elements['name'].value.trim(),spot=f.elements['spot'].value.trim(),res=document.getElementById('tip-result');
+function initTip(){document.getElementById('tip-form').addEventListener('submit',function(e){e.preventDefault();var f=e.target,name=f.elements['name'].value.trim(),spot=f.elements['spot'].value.trim(),why=f.elements['why'].value.trim(),cat=f.elements['cat'].value,res=document.getElementById('tip-result'),btn=f.querySelector('button[type="submit"]');
  if(!spot){res.textContent='Add the place name and area first.';f.elements['spot'].focus();return}
- res.textContent='Thanks'+(name?', '+name:'')+'. This is a demo form for the course project, so your tip about '+spot+' stays on this page and is not sent anywhere.'})}
+ if(f.elements['company']&&f.elements['company'].value){res.textContent='Thanks for the tip.';f.reset();return}
+ var CATS={'Shopping':'Shopping','Food':'Food','Hidden gem':'Hidden Gems','Event':'Events','Scenery':'Scenery','Side quest':'Side Quest'},body=new URLSearchParams();
+ body.append('entry.387853459',name);body.append('entry.2071533458',CATS[cat]||cat);body.append('entry.1473352482',spot);body.append('entry.1623963818',why);
+ btn.disabled=true;res.textContent='Sending your tip...';
+ fetch('https://docs.google.com/forms/d/e/1FAIpQLSda03W5mucx_SlxR_BVemGwanIezPLhEU2I8R8RHyEIAbSktg/formResponse',{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:body.toString()})
+ .then(function(){res.textContent='Thanks'+(name?', '+name:'')+'. Your tip about '+spot+' was sent. We check every tip before anything goes on the site.';f.reset()})
+ .catch(function(){res.textContent='Sorry, that did not send. Check your connection and try again.'})
+ .then(function(){btn.disabled=false})})}
 
 /* ---------- router ---------- */
 var app=document.getElementById('app'),menu=document.getElementById('menu');
