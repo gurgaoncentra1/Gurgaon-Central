@@ -933,8 +933,8 @@ function initShop(){
 function initTip(){document.getElementById('tip-form').addEventListener('submit',function(e){e.preventDefault();var f=e.target,name=f.elements['name'].value.trim(),spot=f.elements['spot'].value.trim(),why=f.elements['why'].value.trim(),cat=f.elements['cat'].value,res=document.getElementById('tip-result'),btn=f.querySelector('button[type="submit"]');
  if(!spot){res.textContent='Add the place name and area first.';f.elements['spot'].focus();return}
  if(f.elements['company']&&f.elements['company'].value){res.textContent='Thanks for the tip.';f.reset();return}
- var CATS={'Shopping':'Shopping','Food':'Food','Hidden gem':'Hidden Gems','Event':'Events','Scenery':'Scenery','Side quest':'Side Quest'},body=new URLSearchParams();
- body.append('entry.387853459',name);body.append('entry.2071533458',CATS[cat]||cat);body.append('entry.1473352482',spot);body.append('entry.1623963818',why);
+ var body=new URLSearchParams();
+ body.append('entry.387853459',name);body.append('entry.2071533458',cat);body.append('entry.1473352482',spot);body.append('entry.1623963818',why);
  btn.disabled=true;res.textContent='Sending your tip...';
  fetch('https://docs.google.com/forms/d/e/1FAIpQLSda03W5mucx_SlxR_BVemGwanIezPLhEU2I8R8RHyEIAbSktg/formResponse',{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:body.toString()})
  .then(function(){res.textContent='Thanks'+(name?', '+name:'')+'. Your tip about '+spot+' was sent. We check every tip before anything goes on the site.';f.reset()})
