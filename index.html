@@ -126,8 +126,8 @@ nav.menu a[aria-current="page"]{background:var(--teal);color:var(--ink);border-c
 
 /* cards */
 .cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,300px),1fr));gap:26px}
-.card{display:flex;flex-direction:column;background:var(--surface);border:3px solid var(--stroke);border-radius:22px;box-shadow:7px 7px 0 var(--shadow);overflow:hidden;min-width:0;transition:transform .15s,box-shadow .15s}
-.card:hover{transform:translate(-3px,-3px) rotate(-.4deg);box-shadow:10px 10px 0 var(--shadow)}
+.card{display:flex;flex-direction:column;background:var(--surface);border:3px solid var(--stroke);border-radius:22px;box-shadow:7px 7px 0 var(--pagec,var(--shadow));overflow:hidden;min-width:0;transition:transform .15s,box-shadow .15s}
+.card:hover{transform:translate(-3px,-3px) rotate(-.4deg);box-shadow:10px 10px 0 var(--pagec,var(--shadow))}
 .card .pic{border-bottom:3px solid var(--stroke);aspect-ratio:400/260;background:var(--chip);position:relative;overflow:hidden}
 .card .pic svg{display:block;width:100%;height:100%}
 .pic img.photo{display:block;position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
@@ -955,6 +955,7 @@ menu.innerHTML=ROUTES.filter(function(r){return r.id!=='home'}).map(function(r){
 var word=['Shop','Eat','Explore','Learn','Wander','Repeat'].map(function(w){return '<span>'+w+'</span><span class="sep">✦</span>'}).join('');
 document.getElementById('track').innerHTML=word+word+word+word;
 function route(){var id=(location.hash||'#home').slice(1),jump=null;if(id==='map-section'){jump=id;id='home'}var r=ROUTES.find(function(x){return x.id===id})||ROUTES[0];
+ document.documentElement.style.setProperty('--pagec',r.bg||'var(--teal)');
  app.innerHTML=PAGES[r.id]();
  menu.querySelectorAll('a').forEach(function(a){if(a.getAttribute('data-id')===r.id)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current')});
  var act=menu.querySelector('[aria-current]');if(act&&act.scrollIntoView)try{act.scrollIntoView({inline:'center',block:'nearest'})}catch(e){}
