@@ -22,6 +22,7 @@
   --navy:#1F3A5F;
   --coral:#E76F51;
   --sand:#F4A261;
+  --tan:#E6D3A3;
   --ink:#22262B;
   --paper:#F6F1E9;
 }
@@ -53,7 +54,7 @@ nav.menu{display:flex;gap:6px;overflow-x:auto;flex:1 1 300px;min-width:0;padding
 nav.menu::-webkit-scrollbar{display:none}
 nav.menu a{padding:5px 13px;border-radius:99px;text-decoration:none;font-weight:700;font-size:.92rem;white-space:nowrap;border:2px solid transparent}
 nav.menu a:hover{border-color:var(--stroke)}
-nav.menu a[aria-current="page"]{background:var(--teal);color:var(--ink);border-color:var(--stroke);box-shadow:3px 3px 0 var(--shadow)}
+nav.menu a[aria-current="page"]{background:var(--pagec,var(--teal));color:var(--pagefg,var(--ink));border-color:var(--stroke);box-shadow:3px 3px 0 var(--shadow)}
 .marquee{background:var(--ink);color:var(--paper);overflow:hidden;border-bottom:3px solid var(--stroke)}
 .track{display:flex;width:max-content;animation:scroll 32s linear infinite}
 .track span{padding:8px 20px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;font-size:.8rem;white-space:nowrap}
@@ -152,8 +153,8 @@ a.more:hover{transform:translate(-1px,-1px)}
 
 /* filters */
 .chips{display:flex;flex-wrap:wrap;gap:10px;margin:0 0 14px;padding:0;list-style:none}
-.chip-btn{font:inherit;font-weight:800;font-size:.95rem;padding:8px 18px;border-radius:99px;border:3px solid var(--stroke);background:var(--surface);color:var(--fg);cursor:pointer;box-shadow:3px 3px 0 var(--shadow)}
-.chip-btn[aria-pressed="true"]{background:var(--teal);color:var(--ink)}
+.chip-btn{font:inherit;font-weight:800;font-size:.95rem;padding:8px 18px;border-radius:99px;border:3px solid var(--stroke);background:var(--surface);color:var(--fg);cursor:pointer;box-shadow:3px 3px 0 var(--pagec,var(--shadow))}
+.chip-btn[aria-pressed="true"]{background:var(--pagec,var(--teal));color:var(--pagefg,var(--ink))}
 .shop-count{margin:0 0 20px;color:var(--muted);font-size:.95rem;font-weight:600}
 
 /* home tiles */
@@ -522,16 +523,16 @@ var NEWT=[
 /* ---------- pages ---------- */
 var ROUTES=[
  {id:'home',label:'Home'},
- {id:'shopping',label:'Shopping',bg:'var(--coral)',fg:'var(--ink)',eyebrow:'Page 1',title:'Shopping',tag:'Retail therapy, but make it Gurgaon.',hand:'six spots, zero boring ones',tile:'mall',stk:['jhumka','bangles'],blurb:'Malls, markets and flea finds.',tc:T},
+ {id:'shopping',label:'Shopping',bg:'var(--teal)',fg:'var(--ink)',eyebrow:'Page 1',title:'Shopping',tag:'Retail therapy, but make it Gurgaon.',hand:'six spots, zero boring ones',tile:'mall',stk:['jhumka','bangles'],blurb:'Malls, markets and flea finds.',tc:T},
  {id:'food',label:'Food',bg:'var(--coral)',fg:'var(--ink)',eyebrow:'Page 2',title:'Food',tag:'Eat. Post. Repeat.',hand:'pakoda first, craft beer later',tile:'stall',stk:['chai','samosa'],blurb:'Pakodas, cafés and craft beer.',tc:PK},
  {id:'education',label:'Education',bg:'var(--sand)',fg:'var(--ink)',eyebrow:'Page 3',title:'Education',tag:'Campus lore, ranked by vibes and placements.',hand:'study era unlocked',tile:'tower',stk:['shades','sparkle'],blurb:'B-schools and big green campuses.',tc:S},
  {id:'gems',label:'Hidden Gems',bg:'var(--navy)',fg:'var(--paper)',eyebrow:'Page 4',title:'Hidden Gems',tag:'Off the algorithm. Older than the skyline.',hand:'no crowds, big lore',tile:'stepwell',stk:['nazar','diya'],blurb:'Stepwells, forts and old shops.',tc:MI},
- {id:'events',label:'Events',bg:'var(--sand)',fg:'var(--ink)',eyebrow:'Page 5',title:'Events',tag:'Your calendar called. It wants garba.',hand:'dates change every year!',tile:'garba',stk:['marigold','kite'],blurb:'Navratri nights, gigs and shows.',tc:L},
- {id:'quests',label:'Sidequests',bg:'var(--coral)',fg:'var(--ink)',eyebrow:'Page 6',title:'Sidequests',tag:'Detours worth taking.',hand:'pick one this weekend',tile:'pin',stk:['bracelet','sparkle'],blurb:'Rails, escape rooms and go-karts.',tc:PK},
- {id:'plan',label:'Plan a Day',bg:'var(--teal)',fg:'var(--ink)',eyebrow:'Page 7',title:'Plan a Day',tag:'Tell us the vibe. We build the day.',hand:'your day, your pace',tile:'pin',stk:['auto','sparkle'],blurb:'Tell us your mood and we’ll build a one-day plan of places to visit.',tc:T},
+ {id:'events',label:'Events',bg:'var(--tan)',fg:'var(--ink)',eyebrow:'Page 5',title:'Events',tag:'Your calendar called. It wants garba.',hand:'dates change every year!',tile:'garba',stk:['marigold','kite'],blurb:'Navratri nights, gigs and shows.',tc:L},
+ {id:'quests',label:'Sidequests',bg:'var(--teal)',fg:'var(--ink)',eyebrow:'Page 6',title:'Sidequests',tag:'Detours worth taking.',hand:'pick one this weekend',tile:'pin',stk:['bracelet','sparkle'],blurb:'Rails, escape rooms and go-karts.',tc:PK},
+ {id:'plan',label:'Plan a Day',bg:'var(--coral)',fg:'var(--ink)',eyebrow:'Page 7',title:'Plan a Day',tag:'Tell us the vibe. We build the day.',hand:'your day, your pace',tile:'pin',stk:['auto','sparkle'],blurb:'Tell us your mood and we’ll build a one-day plan of places to visit.',tc:T},
  {id:'travel',label:'Travel',bg:'var(--sand)',fg:'var(--ink)',eyebrow:'Page 8',title:'Travel',tag:'Get around like you live here.',hand:'metro, cab or auto?',tile:'metro',stk:['auto','kite'],blurb:'Getting around and sample days.',tc:T},
- {id:'blogs',label:'Blogs',bg:'var(--coral)',fg:'var(--ink)',eyebrow:'Page 9',title:'Blogs',tag:'Longer reads, straight from us.',hand:'grab a chai first',tile:'pin',stk:['diya','sparkle'],blurb:'Longer reads from our own blogs.',tc:PK},
- {id:'tip',label:'Share a Tip',bg:'var(--sand)',fg:'var(--ink)',eyebrow:'Page 10',title:'Share a Tip',tag:'Drop the pin. Local knowledge wins.',hand:'the best finds come from you',tile:'pin',stk:['nazar','auto'],blurb:'Know a spot we missed? Tell us.',tc:L}
+ {id:'blogs',label:'Blogs',bg:'var(--navy)',fg:'var(--paper)',eyebrow:'Page 9',title:'Blogs',tag:'Longer reads, straight from us.',hand:'grab a chai first',tile:'pin',stk:['diya','sparkle'],blurb:'Longer reads from our own blogs.',tc:PK},
+ {id:'tip',label:'Share a Tip',bg:'var(--tan)',fg:'var(--ink)',eyebrow:'Page 10',title:'Share a Tip',tag:'Drop the pin. Local knowledge wins.',hand:'the best finds come from you',tile:'pin',stk:['nazar','auto'],blurb:'Know a spot we missed? Tell us.',tc:L}
 ];
 function phero(r){return '<section class="phero" style="--pg-bg:'+r.bg+';--pg-fg:'+r.fg+'"><div class="wrap"><span class="sticker">'+r.eyebrow+' of 10</span><h1>'+r.title+'</h1><p class="tagline">'+r.tag+'</p><span class="hand">'+r.hand+'</span>'+stk(r.stk[0],'deco d1 bob','right:2%;top:-4px;--s:120px;--r:10deg')+stk(r.stk[1],'deco d2','right:170px;bottom:-18px;--s:84px;--r:-12deg')+'</div></section>'}
 function pager(id){var i=ROUTES.findIndex(function(x){return x.id===id}),n=ROUTES[(i+1)%ROUTES.length];return '<div class="pager"><a class="btn light" href="#home">← Home</a><a class="btn" href="#'+n.id+'">Next: '+n.label+' →</a></div>'}
@@ -955,7 +956,7 @@ menu.innerHTML=ROUTES.filter(function(r){return r.id!=='home'}).map(function(r){
 var word=['Shop','Eat','Explore','Learn','Wander','Repeat'].map(function(w){return '<span>'+w+'</span><span class="sep">✦</span>'}).join('');
 document.getElementById('track').innerHTML=word+word+word+word;
 function route(){var id=(location.hash||'#home').slice(1),jump=null;if(id==='map-section'){jump=id;id='home'}var r=ROUTES.find(function(x){return x.id===id})||ROUTES[0];
- document.documentElement.style.setProperty('--pagec',r.bg||'var(--teal)');
+ document.documentElement.style.setProperty('--pagec',r.bg||'var(--teal)');document.documentElement.style.setProperty('--pagefg',r.fg||'var(--ink)');
  app.innerHTML=PAGES[r.id]();
  menu.querySelectorAll('a').forEach(function(a){if(a.getAttribute('data-id')===r.id)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current')});
  var act=menu.querySelector('[aria-current]');if(act&&act.scrollIntoView)try{act.scrollIntoView({inline:'center',block:'nearest'})}catch(e){}
