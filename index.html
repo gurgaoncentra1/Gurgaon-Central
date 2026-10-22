@@ -813,9 +813,9 @@ function blogSection(){
 /* ---------- day planner ---------- */
 var PL_DOW=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'],PL_MON=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
 var PL_STARTS={morning:540,afternoon:780,evening:1020};
-var PL_KIND={shop:'Shopping',food:'Food',culture:'Culture',nature:'Nature',event:'Event',show:'Show',class:'Class'};
-var PL_MOODS=[['food','Food'],['shop','Shopping'],['culture','Culture'],['nature','Nature'],['events','Events & nights'],['chill','Chill']];
-var PL_MOODKINDS={food:['food'],shop:['shop'],culture:['culture'],nature:['nature'],events:['event','show'],class:['class'],chill:['nature','food']};
+var PL_KIND={shop:'Shopping',food:'Food',culture:'Culture',nature:'Nature',event:'Event',show:'Show',activity:'Activity'};
+var PL_MOODS=[['food','Food'],['shop','Shopping'],['culture','Culture'],['nature','Nature'],['events','Events & nights'],['activity','Activities'],['chill','Chill']];
+var PL_MOODKINDS={food:['food'],shop:['shop'],culture:['culture'],nature:['nature'],events:['event','show'],activity:['activity'],chill:['nature','food']};
 var PL_CHECK='Check opening days and timings before you go.';
 var PL_PLACES=[
  {id:'ambience',name:'Ambience Mall',area:'NH-8, DLF Phase 3',kind:'shop',cost:2,dur:120,open:600,close:1320,indoor:1,tags:['family','friends','date'],blurb:'Fashion, food and entertainment under one roof, with stores such as Sephora and MAC.',pin:'ambience',q:'Ambience Mall Gurugram'},
@@ -832,7 +832,15 @@ var PL_PLACES=[
  {id:'pakoda',name:'Gandhi Ji Pakoda Wale',area:'Sadar Bazaar, Old Gurgaon',kind:'food',meal:['snack','lunch','dinner'],cost:1,dur:40,open:480,close:1320,tags:['friends','solo','family'],blurb:'Hot pakoras in the lanes of Sadar Bazaar.',pin:'sadar',q:'Gandhi Ji Pakoda Wale Sadar Bazar Gurugram'},
  {id:'galfood',name:'Cafés and microbreweries at Galleria',area:'Galleria Market, DLF Phase 4',kind:'food',meal:['snack','lunch','dinner'],cost:2,dur:75,open:660,close:1350,closed:[2],tags:['date','friends','solo'],blurb:'Cafés and microbreweries tucked between the boutiques, good for a slow evening.',pin:'galleria',q:'Galleria Market DLF Phase 4 Gurugram'},
  {id:'ambfood',name:'Ambience Mall food courts',area:'NH-8, DLF Phase 3',kind:'food',meal:['snack','lunch','dinner'],cost:2,dur:60,open:600,close:1320,indoor:1,tags:['family','friends','date'],blurb:'An easy meal under the same roof as the shops.',pin:'ambience',q:'Ambience Mall Gurugram'},
- {id:'sevenbarrel',name:'Seven Barrel Brewpub',area:'DT Mega Mall, Golf Course Rd, Sector 28',kind:'food',meal:['dinner'],cost:2,dur:75,open:1080,close:1410,adult:1,indoor:1,tags:['friends','date'],blurb:'A brewpub and fresh beer café on the 2nd floor of DT Mega Mall.',pin:'sevenbarrel',q:'Seven Barrel Brewpub DT Mega Mall Gurugram',note:'Timings are not listed here, so confirm before you go.'}
+ {id:'sevenbarrel',name:'Seven Barrel Brewpub',area:'DT Mega Mall, Golf Course Rd, Sector 28',kind:'food',meal:['dinner'],cost:2,dur:75,open:1080,close:1410,adult:1,indoor:1,tags:['friends','date'],blurb:'A brewpub and fresh beer café on the 2nd floor of DT Mega Mall.',pin:'sevenbarrel',q:'Seven Barrel Brewpub DT Mega Mall Gurugram',note:'Timings are not listed here, so confirm before you go.'},
+ {id:'iskate',name:'Ice skating at ISKATE',area:'Ambience Mall, 6th floor',kind:'activity',cost:2,dur:90,open:600,close:1320,indoor:1,tags:['friends','date','family','solo'],blurb:'An indoor ice rink in Gurugram, tucked inside Ambience Mall.',pin:'ambience',href:'#quests',note:'Timings are not listed here, so confirm before you go.'},
+ {id:'f9',name:'Go-karting at F9',area:'Sector 59',kind:'activity',cost:3,dur:75,open:780,close:1320,indoor:1,tags:['friends','date'],blurb:'A multi-level, tech-driven go-karting track that suits groups.',href:'#quests',note:'Open 1 PM to 10 PM, so book ahead.'},
+ {id:'pinkfalcon',name:'Glow karting and bowling at The Pink Falcon',area:'JMD Empire Square, Mehrauli–Gurgaon Road',kind:'activity',cost:3,dur:120,open:660,close:1380,indoor:1,tags:['friends','date','family'],blurb:'Indoor glow karting and bowling under one roof.',href:'#quests',note:'Timings are not listed here, so confirm before you go.'},
+ {id:'smaaash',name:'SMAAASH and Hangout',area:'DLF CyberHub',kind:'activity',cost:3,dur:120,open:660,close:1380,indoor:1,tags:['friends','date','family'],blurb:'Group gaming arenas with go-karting, bowling and trampoline parks.',pin:'cyberfood',href:'#quests',note:'Timings are not listed here, so confirm before you go.'},
+ {id:'underdoggs',name:'Underdoggs Arena',area:'M3M 65th Avenue, Sector 65',kind:'activity',cost:2,dur:120,open:660,close:1380,indoor:1,tags:['friends','date','solo'],blurb:"Gurugram's most premium arcade, with games, screens and lounge seating.",href:'#quests',note:'Timings are not listed here, so confirm before you go.'},
+ {id:'escape',name:'Escape rooms',area:'M3M, MGF Metropolis and Sector 29',kind:'activity',cost:2,dur:75,open:660,close:1320,indoor:1,tags:['friends','date','family'],blurb:'Race the clock to escape a themed room at Mystery Rooms, The Hidden Hour or Shift.Esc.',href:'#quests',note:'Timings are not listed here, so confirm before you go.'},
+ {id:'clay',name:'Pottery at The Clay Company',area:'Sector 27',kind:'activity',cost:2,dur:90,open:600,close:1230,indoor:1,tags:['friends','date','solo'],blurb:'Handcrafted ceramics, plus pottery classes for adults and kids.',href:'#quests',note:'Book a class slot ahead and wear clothes that can get messy.'},
+ {id:'railway',name:'NeverEnuf Garden Railway',area:'Panchgaon–Taoru road',kind:'activity',cost:1,dur:60,open:600,close:1080,indoor:0,tags:['family','date'],blurb:'A miniature railroad in a one-acre landscaped park, built for families and hobbyists.',href:'#quests',note:'Entry is by booked slot, so confirm before you go.',far:true}
 ];
 var PL_EVENTS=[
  ];
@@ -847,7 +855,7 @@ function plFmt(m){var h=Math.floor(m/60),mi=m%60;return (h%12||12)+':'+(mi<10?'0
 function plRand(seed,id){var h=2166136261^seed;for(var i=0;i<id.length;i++){h^=id.charCodeAt(i);h=Math.imul(h,16777619)}h^=h>>>13;h=Math.imul(h,1274126177);return ((h^(h>>>16))>>>0)/4294967296}
 function plXY(p){if(!p.pin)return null;var q=PINS.filter(function(x){return x.id===p.pin})[0];return q?pinXY(q):null}
 function plKm(a,b){var A=plXY(a),B=plXY(b);if(!A||!B)return 0;return Math.hypot(A.x-B.x,A.y-B.y)/15*1.3}
-function plTravel(a,b){if(!a)return null;if(!plXY(a)||!plXY(b))return {min:20,txt:'The studio location varies, so allow about 20 min'};
+function plTravel(a,b){if(!a)return null;if(!plXY(a)||!plXY(b))return {min:20,txt:'Allow about 20 min to get there'};
  var km=plKm(a,b);if(km<.9)return {min:km<.05?0:5,txt:km<.05?'Stay put, it is the same spot':'Same area, a short walk'};
  var m=Math.max(10,Math.round((km*2.2+8)/5)*5);return {min:m,txt:'About '+m+' min by cab or auto'}}
 function plBuild(S){
@@ -869,7 +877,7 @@ function plBuild(S){
  function score(p,t,pv,meal){var s=0;if(mk.indexOf(p.kind)>-1)s+=4;else if(!S.moods.length)s+=1;
   if(S.moods.indexOf('chill')>-1&&p.cost>1)s-=.5;
   if(p.kind==='nature')s+=t<660?2:(t>=1020?-2:0);if(p.kind==='culture'&&t>=600&&t<1020)s+=1;if(p.kind==='shop'&&t>=900)s+=1;
-  if(p.kind==='show')s+=t>=1080?2:-3;if(p.kind==='class'&&t>=960)s+=1;
+  if(p.kind==='show')s+=t>=1080?2:-3;if(p.kind==='activity'&&t>=960)s+=1;
   if(S.who&&p.tags&&p.tags.indexOf(S.who)>-1)s+=1;if(S.budget===1)s+=(1-p.cost)*.5;
   if(pv){s-=plKm(pv,p)*(meal?.35:.12);if(!meal&&pv.kind===p.kind)s-=1.2}
   if(p.far&&cap<5)s-=(mk.indexOf(p.kind)<0?4:1.5);if(S.keep[p.id])s+=6;
@@ -895,7 +903,7 @@ function plWhy(p,S,need,t){var r=[];
  else{var hit=[];S.moods.forEach(function(m){if(PL_MOODKINDS[m].indexOf(p.kind)>-1)hit.push(PL_MOODS.filter(function(x){return x[0]===m})[0][1].toLowerCase())});if(hit.length)r.push('Fits your '+hit[0]+' mood');
   if(p.kind==='nature'&&t<660)r.push('Best early, before the day heats up');if(p.kind==='show')r.push('An evening plan')}
  if(S.who&&p.tags&&p.tags.indexOf(S.who)>-1)r.push(plWho(S.who));return r.join(' · ')}
-function plLink(p){if(p.href){if(p.href.charAt(0)==='#')return '<a class="pl-mini" href="'+p.href+'">See class listings →</a>';return '<a class="pl-mini" href="'+p.href+'" target="_blank" rel="noopener">Tickets and info ↗</a>'}
+function plLink(p){if(p.href){if(p.href.charAt(0)==='#')return '<a class="pl-mini" href="'+p.href+'">See it on Sidequests →</a>';return '<a class="pl-mini" href="'+p.href+'" target="_blank" rel="noopener">Tickets and info ↗</a>'}
  return p.q?'<a class="pl-mini" href="'+maps(p.q)+'" target="_blank" rel="noopener">Open in Maps →</a>':''}
 function plHTML(res,latest){
  var h='<p>'+esc(res.intro)+'</p>'+res.notes.map(function(n){return '<p class="pl-small">'+esc(n)+'</p>'}).join('')+'<ol class="it">';
@@ -908,12 +916,12 @@ function plText(res){return res.intro+'\n\n'+res.stops.map(function(s){return pl
 function plParse(raw){
  var S=PL.S,t=' '+raw.toLowerCase()+' ',any=false,has=function(re){return re.test(t)};
  if(has(/\b(start over|reset|clear everything|from scratch)\b/)){PL.S=plFresh();return {reset:true,any:true}}
- var det=[['food',/\b(food|eat|eating|hungry|snack|snacks|chai|pakoda|pakora|street food|lunch|dinner|brunch|cafe|café|restaurant|foodie)\b/],['shop',/\b(shop|shopping|market|markets|mall|malls|flea|thrift|buy|retail)\b/],['culture',/\b(museum|museums|art|history|heritage|culture|cultural|photo|photography|camera|cameras|stepwell|baoli|fort|temple|old gurgaon|vintage|cars)\b/],['nature',/\b(nature|park|bird|birds|birdwatching|walk|outdoor|outdoors|green|grass|hike|fresh air)\b/],['events',/\b(event|events|dandiya|garba|comedy|stand-?up|show|shows|concert|nightlife|party|drinks|beer|music)\b/],['chill',/\b(chill|relax|relaxed|slow|lazy|calm|quiet)\b/]];
+ var det=[['food',/\b(food|eat|eating|hungry|snack|snacks|chai|pakoda|pakora|street food|lunch|dinner|brunch|cafe|café|restaurant|foodie)\b/],['shop',/\b(shop|shopping|market|markets|mall|malls|flea|thrift|buy|retail)\b/],['culture',/\b(museum|museums|art|history|heritage|culture|cultural|photo|photography|camera|cameras|stepwell|baoli|fort|temple|old gurgaon|vintage|cars)\b/],['nature',/\b(nature|park|bird|birds|birdwatching|walk|outdoor|outdoors|green|grass|hike|fresh air)\b/],['events',/\b(event|events|dandiya|garba|comedy|stand-?up|show|shows|concert|nightlife|party|drinks|beer|music)\b/],['activity',/\b(activity|activities|skating|karting|kart|karts|escape rooms?|pottery|arcade|bowling|adventure|things to do)\b/],['chill',/\b(chill|relax|relaxed|slow|lazy|calm|quiet)\b/]];
  var pos=t.replace(/\b(no|skip|without|avoid|less)\s+(?:more\s+)?\w+/g,' ');
  det.forEach(function(d){if(d[1].test(pos)){if(S.moods.indexOf(d[0])<0)S.moods.push(d[0]);any=true}});
- var no=t.match(/\b(?:no|skip|without|avoid|less)\s+(shopping|shops?|malls?|museums?|nature|parks?|classes|events)\b/);
- if(no){var k={shopping:'shop',shop:'shop',shops:'shop',mall:'shop',malls:'shop',museum:'culture',museums:'culture',nature:'nature',park:'nature',parks:'nature',classes:'class',events:'event'}[no[1]];
-  if(k&&S.skip.indexOf(k)<0)S.skip.push(k);var mm={shop:'shop',culture:'culture',nature:'nature',class:'class',event:'events'}[k];S.moods=S.moods.filter(function(x){return x!==mm});any=true}
+ var no=t.match(/\b(?:no|skip|without|avoid|less)\s+(shopping|shops?|malls?|museums?|nature|parks?|activities|activity|events)\b/);
+ if(no){var k={shopping:'shop',shop:'shop',shops:'shop',mall:'shop',malls:'shop',museum:'culture',museums:'culture',nature:'nature',park:'nature',parks:'nature',activities:'activity',activity:'activity',events:'event'}[no[1]];
+  if(k&&S.skip.indexOf(k)<0)S.skip.push(k);var mm={shop:'shop',culture:'culture',nature:'nature',activity:'activity',event:'events'}[k];S.moods=S.moods.filter(function(x){return x!==mm});any=true}
  if(has(/\b(solo|alone|by myself)\b/)){S.who='solo';any=true}else if(has(/\b(friends|friend|group|gang|squad)\b/)){S.who='friends';any=true}else if(has(/\b(date|partner|couple|girlfriend|boyfriend|romantic)\b/)){S.who='date';any=true}else if(has(/\b(family|kids|kid|child|children|parents|mom|dad)\b/)){S.who='family';any=true}
  if(has(/\b(cheaper|cheap|budget|low[- ]cost|broke|inexpensive|student|free)\b/)){S.budget=(has(/\bcheaper\b/)&&S.budget>1)?S.budget-1:1;any=true}else if(has(/\b(splurge|fancy|luxury|premium|treat|expensive|pricey)\b/)){S.budget=3;any=true}else if(has(/\b(mid|medium|moderate)\b/)){S.budget=2;any=true}
  var tm=t.match(/\b(\d{1,2})(?::(\d{2}))?\s?(am|pm)\b/);
