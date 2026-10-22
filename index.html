@@ -814,7 +814,7 @@ function blogSection(){
 var PL_DOW=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'],PL_MON=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
 var PL_STARTS={morning:540,afternoon:780,evening:1020};
 var PL_KIND={shop:'Shopping',food:'Food',culture:'Culture',nature:'Nature',event:'Event',show:'Show',class:'Class'};
-var PL_MOODS=[['food','Food'],['shop','Shopping'],['culture','Culture'],['nature','Nature'],['events','Events & nights'],['class','Classes'],['chill','Chill']];
+var PL_MOODS=[['food','Food'],['shop','Shopping'],['culture','Culture'],['nature','Nature'],['events','Events & nights'],['chill','Chill']];
 var PL_MOODKINDS={food:['food'],shop:['shop'],culture:['culture'],nature:['nature'],events:['event','show'],class:['class'],chill:['nature','food']};
 var PL_CHECK='Check opening days and timings before you go.';
 var PL_PLACES=[
@@ -829,8 +829,6 @@ var PL_PLACES=[
  {id:'baoli',name:'Badshahpur Baoli',area:'Badshahpur',kind:'culture',cost:0,dur:45,open:540,close:1080,tags:['solo','date','friends'],blurb:'A Mughal-era stepwell, a quiet stop for photographers and history fans.',pin:'baoli',q:'Badshahpur Baoli Gurugram'},
  {id:'sheetla',name:'Sheetla Mata Mandir',area:'Old Gurgaon',kind:'culture',cost:0,dur:45,open:360,close:1260,tags:['family','solo'],blurb:'A well-known shrine in Old Gurgaon that draws big crowds in festival season.',pin:'sheetla',q:'Sheetla Mata Mandir Gurugram'},
  {id:'bhondsi',name:'Bhondsi Nature Park',area:'Bhondsi',kind:'nature',cost:0,dur:120,open:360,close:1080,far:1,tags:['family','solo','date','friends'],blurb:'Birdwatching, wide walking paths, a temple complex and open space where children can play.',pin:'bhondsi',q:'Bhondsi Nature Park Gurugram'},
- {id:'pottery',name:'Pottery class',area:'Studios across the city',kind:'class',cost:2,dur:90,open:600,close:1230,indoor:1,tags:['friends','date','solo'],blurb:'Wheel-throwing and hand-building workshops where you take home something you made.',href:'#quests',note:'Book ahead and wear clothes that can get messy.'},
- {id:'dance',name:'Dance class',area:'Studios across the city',kind:'class',cost:2,dur:90,open:600,close:1230,indoor:1,tags:['friends','solo','date'],blurb:'Bollywood, classical, salsa and contemporary studios with beginner batches.',href:'#quests',note:'Ask for a free trial class and a weekend batch.'},
  {id:'pakoda',name:'Gandhi Ji Pakoda Wale',area:'Sadar Bazaar, Old Gurgaon',kind:'food',meal:['snack','lunch','dinner'],cost:1,dur:40,open:480,close:1320,tags:['friends','solo','family'],blurb:'Hot pakoras in the lanes of Sadar Bazaar.',pin:'sadar',q:'Gandhi Ji Pakoda Wale Sadar Bazar Gurugram'},
  {id:'galfood',name:'Cafés and microbreweries at Galleria',area:'Galleria Market, DLF Phase 4',kind:'food',meal:['snack','lunch','dinner'],cost:2,dur:75,open:660,close:1350,closed:[2],tags:['date','friends','solo'],blurb:'Cafés and microbreweries tucked between the boutiques, good for a slow evening.',pin:'galleria',q:'Galleria Market DLF Phase 4 Gurugram'},
  {id:'ambfood',name:'Ambience Mall food courts',area:'NH-8, DLF Phase 3',kind:'food',meal:['snack','lunch','dinner'],cost:2,dur:60,open:600,close:1320,indoor:1,tags:['family','friends','date'],blurb:'An easy meal under the same roof as the shops.',pin:'ambience',q:'Ambience Mall Gurugram'},
@@ -910,7 +908,7 @@ function plText(res){return res.intro+'\n\n'+res.stops.map(function(s){return pl
 function plParse(raw){
  var S=PL.S,t=' '+raw.toLowerCase()+' ',any=false,has=function(re){return re.test(t)};
  if(has(/\b(start over|reset|clear everything|from scratch)\b/)){PL.S=plFresh();return {reset:true,any:true}}
- var det=[['food',/\b(food|eat|eating|hungry|snack|snacks|chai|pakoda|pakora|street food|lunch|dinner|brunch|cafe|café|restaurant|foodie)\b/],['shop',/\b(shop|shopping|market|markets|mall|malls|flea|thrift|buy|retail)\b/],['culture',/\b(museum|museums|art|history|heritage|culture|cultural|photo|photography|camera|cameras|stepwell|baoli|fort|temple|old gurgaon|vintage|cars)\b/],['nature',/\b(nature|park|bird|birds|birdwatching|walk|outdoor|outdoors|green|grass|hike|fresh air)\b/],['events',/\b(event|events|dandiya|garba|comedy|stand-?up|show|shows|concert|nightlife|party|drinks|beer|music)\b/],['class',/\b(pottery|dance|class|classes|hobby|workshop|learn|lesson)\b/],['chill',/\b(chill|relax|relaxed|slow|lazy|calm|quiet)\b/]];
+ var det=[['food',/\b(food|eat|eating|hungry|snack|snacks|chai|pakoda|pakora|street food|lunch|dinner|brunch|cafe|café|restaurant|foodie)\b/],['shop',/\b(shop|shopping|market|markets|mall|malls|flea|thrift|buy|retail)\b/],['culture',/\b(museum|museums|art|history|heritage|culture|cultural|photo|photography|camera|cameras|stepwell|baoli|fort|temple|old gurgaon|vintage|cars)\b/],['nature',/\b(nature|park|bird|birds|birdwatching|walk|outdoor|outdoors|green|grass|hike|fresh air)\b/],['events',/\b(event|events|dandiya|garba|comedy|stand-?up|show|shows|concert|nightlife|party|drinks|beer|music)\b/],['chill',/\b(chill|relax|relaxed|slow|lazy|calm|quiet)\b/]];
  var pos=t.replace(/\b(no|skip|without|avoid|less)\s+(?:more\s+)?\w+/g,' ');
  det.forEach(function(d){if(d[1].test(pos)){if(S.moods.indexOf(d[0])<0)S.moods.push(d[0]);any=true}});
  var no=t.match(/\b(?:no|skip|without|avoid|less)\s+(shopping|shops?|malls?|museums?|nature|parks?|classes|events)\b/);
