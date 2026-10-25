@@ -320,8 +320,8 @@ footer .social a:hover,footer .social a:focus-visible{background:var(--paper);co
    Shown by date (see the script in <head>); preview with ?season=festive, hide with ?season=off */
 .fest-tl,.fest-br{display:none;pointer-events:none}
 :root[data-fest~="h"] .fest-tl{display:block;position:relative;height:0;z-index:3}
-.fest-tl svg{position:absolute;left:0;top:0;width:clamp(78px,12.5vw,160px);height:auto;overflow:visible}
-:root[data-fest~="d"] .fest-br{display:block;position:fixed;right:max(6px,env(safe-area-inset-right,0px));bottom:0;z-index:25;width:clamp(105px,15vw,190px)}
+.fest-tl svg{position:absolute;left:0;top:0;width:clamp(110px,12.5vw,160px);height:auto;overflow:visible}
+:root[data-fest~="d"] .fest-br{display:block;position:fixed;right:max(6px,env(safe-area-inset-right,0px));bottom:0;z-index:25;width:clamp(140px,15vw,190px)}
 .fest-br svg{display:block;width:100%;height:auto;overflow:visible}
 .sway{animation:sway 5s ease-in-out infinite}.sway2{animation:sway 6.5s ease-in-out -2s infinite}
 @keyframes sway{50%{transform:rotate(4deg)}}
@@ -331,6 +331,7 @@ footer .social a:hover,footer .social a:focus-visible{background:var(--paper);co
 @keyframes flick{0%,100%{transform:scale(1,1)}35%{transform:scale(.92,1.1) rotate(-3deg)}70%{transform:scale(1.05,.94) rotate(3deg)}}
 @keyframes glow{50%{opacity:.6}}
 @keyframes twk{50%{transform:scale(.7);opacity:.7}}
+@media (max-width:900px){:root[data-fest] .fest-tl,:root[data-fest] .fest-br{display:none}}
 @media (prefers-reduced-motion:reduce){.sway,.sway2,.flame,.glow,.tw{animation:none}}
 </style>
 
