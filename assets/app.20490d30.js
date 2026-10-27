@@ -728,7 +728,7 @@ function initTip(){document.getElementById('tip-form').addEventListener('submit'
 /* ---------- router ---------- */
 var app=document.getElementById('app'),menu=document.getElementById('menu');
 menu.innerHTML=ROUTES.filter(function(r){return r.id!=='home'}).map(function(r){return '<a href="#'+r.id+'" data-id="'+r.id+'">'+r.label+'</a>'}).join('');
-(function(){var f=document.querySelector('footer .wrap');if(!f)return;f.insertAdjacentHTML('beforeend','<nav class="sitemap" aria-label="Site map"><h2>Explore Gurgaon Central</h2><ul>'+ROUTES.map(function(r){return '<li><a href="#'+r.id+'">'+r.label+'</a></li>'}).join('')+'</ul></nav>')})();
+(function(){var f=document.querySelector('footer .wrap');if(!f)return;var old=f.querySelector('.sitemap');if(old)old.remove();f.insertAdjacentHTML('beforeend','<nav class="sitemap" aria-label="Site map"><h2>Explore Gurgaon Central</h2><ul>'+ROUTES.map(function(r){return '<li><a href="#'+r.id+'">'+r.label+'</a></li>'}).join('')+'</ul></nav>')})();
 var word=['Shop','Eat','Explore','Learn','Wander','Repeat'].map(function(w){return '<span>'+w+'</span><span class="sep">✦</span>'}).join('');
 document.getElementById('track').innerHTML=word+word+word+word;
 function route(){closePop();var id=(location.hash||'#home').slice(1),jump=null;if(MPA){id=window.__ROUTE||'home';if(location.hash==='#map-section')jump='map-section'}else if(id==='map-section'){jump=id;id='home'}var r=ROUTES.find(function(x){return x.id===id})||ROUTES[0];
