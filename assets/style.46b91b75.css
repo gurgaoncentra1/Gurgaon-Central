@@ -160,6 +160,7 @@ a.more:hover{transform:translate(-1px,-1px)}
 .pop h3{font-size:1.8rem}
 .pop .x{position:absolute;top:10px;right:10px;z-index:2;width:40px;height:40px;border-radius:50%;border:3px solid var(--stroke);background:var(--surface);color:var(--fg);font-size:1.3rem;font-weight:800;line-height:1;cursor:pointer}
 .pop .lnks{display:flex;flex-wrap:wrap;gap:10px}
+.pop .pic.poster{aspect-ratio:16/9}.pop .pic.poster img{object-fit:contain}
 .pop .nav{position:absolute;top:calc(min(100vw,560px)*.325 - 22px);z-index:2;width:44px;height:44px;border-radius:50%;border:3px solid var(--stroke);background:var(--surface);color:var(--fg);font-size:1.7rem;font-weight:800;line-height:1;padding:0 0 4px;cursor:pointer;opacity:.92}
 .pop .prev{left:10px}.pop .next{right:10px}
 .pop .pcount{margin:0;color:var(--muted);font-size:.85rem;font-weight:600;text-align:center}

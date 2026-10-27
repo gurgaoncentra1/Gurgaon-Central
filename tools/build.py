@@ -5,7 +5,7 @@ src/site.html is the single editable source (all images inlined as base64).
 Running this script (from the repo root) regenerates:
   index.html                      home page
   <tab>/index.html                one real page per tab (shopping, food, ...)
-  shopping/<place>/index.html     one real page per shopping place
+  <tab>/<item>/index.html         one real page per card (shopping, food, education, gems, events, quests, travel)
   assets/app.<hash>.js, assets/style.<hash>.css, assets/img/<hash>.<ext>
   sitemap.xml + robots.txt        only when SITE_URL is set (see below)
 
@@ -20,6 +20,8 @@ SRC = os.path.join(ROOT, 'src', 'site.html')
 SITE_URL = None
 if '--site-url' in sys.argv:
     SITE_URL = sys.argv[sys.argv.index('--site-url') + 1].rstrip('/') + '/'
+
+RELATED = {'shopping': ['food', 'plan', 'events', 'quests'], 'food': ['shopping', 'gems', 'plan', 'events'], 'education': ['travel', 'gems', 'blogs', 'tip'], 'gems': ['quests', 'food', 'travel', 'plan'], 'events': ['quests', 'plan', 'food', 'shopping'], 'quests': ['events', 'plan', 'gems', 'food'], 'plan': ['shopping', 'food', 'quests', 'travel'], 'travel': ['plan', 'gems', 'shopping', 'education'], 'blogs': ['gems', 'food', 'tip', 'events'], 'tip': ['blogs', 'gems', 'food', 'shopping']}
 
 TITLES = {
     'home': ('Gurgaon Central | Your Guide to Gurgaon (Gurugram)', None),
@@ -90,6 +92,7 @@ def main():
 
     # ---- prerender every route ------------------------------------------------
     pages = {}
+    tabitems = {}
     shops = []
     route_ids = []
     with sync_playwright() as pw:
@@ -109,7 +112,15 @@ def main():
               c.querySelectorAll('script,style,.pop-bg,link').forEach(e=>e.remove());
               c.querySelectorAll('.status').forEach(e=>e.remove());
               return c.innerHTML}''')
+            tabitems[rid] = pg.evaluate('''(rid)=>(window.__GC.getTAB()[rid]||[]).map(o=>({title:o.title,tag:o.tag||"",meta:o.meta||"",text:o.text||"",stores:o.stores||[],addr:o.addr||"",href:o.href||"",cta:o.cta||"",links:o.links||[],img:o.img||"",imgAlt:o.imgAlt||"",slug:o.pop.s}))''', rid)
         br.close()
+    def slug(n):
+        import unicodedata
+        n = ''.join(c for c in unicodedata.normalize('NFD', n) if not unicodedata.combining(c)).lower().replace('&', ' and ')
+        return re.sub(r'^-+|-+$', '', re.sub(r'[^a-z0-9]+', '-', n))
+
+    def esc(t):
+        return html.escape(t, quote=True)
 
     def localise(htm, depth):
         root = '../' * depth
@@ -126,33 +137,35 @@ def main():
             return m.group(0)
         return re.sub(r'href="#([a-z-]+)"', hl, htm)
 
-    def esc(t):
-        return html.escape(t, quote=True)
+    # shopping places use the same item shape as the other tabs
+    tabitems['shopping'] = [{
+        'title': x['name'], 'tag': x['tag'], 'meta': x['area'] + (' \u00b7 ' + x['hours'] if x['hours'] else ''),
+        'text': x['text'], 'stores': x['stores'], 'addr': x['addr'], 'href': '', 'cta': '',
+        'links': [['Open in Maps \u2192', 'https://www.google.com/maps/search/?api=1&query=' + x['q'].replace(' ', '+')]] + x['links'],
+        'img': x['img'], 'imgAlt': x['imgAlt'], 'slug': None} for x in shops]
 
-    def place_main(s, i):
-        stores = ''.join('<li>%s</li>' % esc(x) for x in s['stores'])
-        others = ''.join('<li><a href="../%s/">%s</a></li>' % (slug(o['name']), esc(o['name'])) for o in shops if o['name'] != s['name'])
-        img = ('<img class="photo" src="%s" alt="%s" width="800" height="520">' % (s['img'], esc(s['imgAlt'] or s['name']))) if s['img'] else ''
-        links = ''.join('<a class="more" href="%s" target="_blank" rel="noopener">%s</a>' % (esc(l[1]), esc(l[0])) for l in s['links'])
+    labels = {r['id']: r['label'] for r in gc['routes']}
+    blurbs = {r['id']: (r['blurb'] or r['tag']) for r in gc['routes']}
+
+    def place_main(tab, it, items):
+        stores = ''.join('<li>%s</li>' % esc(x) for x in it['stores'])
+        others = ''.join('<li><a href="../%s/">%s</a></li>' % (o['slug'], esc(o['title'])) for o in items if o is not it)
+        img = ('<img class="photo" src="%s" alt="%s" width="800" height="520">' % (it['img'], esc(it['imgAlt'] or it['title']))) if it['img'] else ''
+        links = ''
+        if it['href']:
+            links += '<a class="more" href="%s" target="_blank" rel="noopener">%s</a>' % (esc(it['href']), esc(it['cta'] or 'Open in Maps \u2192'))
+        links += ''.join('<a class="more" href="%s" target="_blank" rel="noopener">%s</a>' % (esc(l[1]), esc(l[0])) for l in it['links'] if not l[1].startswith('#'))
+        rel = ''.join('<li><a href="../../%s/"><strong>%s \u2192</strong><span>%s</span></a></li>' % (k, esc(labels[k]), esc(blurbs[k])) for k in [tab] + RELATED[tab][:3])
         return ('<section class="phero" style="--pg-bg:var(--teal);--pg-fg:var(--ink)"><div class="wrap"><span class="sticker">%s</span><h1>%s</h1>'
                 '<p class="tagline">%s</p></div></section><div class="wrap section"><div class="cards"><article class="card"><div class="pic">%s</div><div class="body">'
-                '<p class="meta">%s</p><p>%s</p>%s%s<div class="lnks"><a class="more" href="https://www.google.com/maps/search/?api=1&amp;query=%s" target="_blank" rel="noopener">Open in Maps →</a>%s</div></div></article></div>'
-                '<section class="related"><h2 class="sub">More places to shop</h2><ul class="mini">%s</ul></section>'
-                '<section class="related"><h2 class="sub">Keep exploring</h2><ul><li><a href="../../shopping/"><strong>All shopping →</strong><span>Malls, markets and flea finds.</span></a></li>'
-                '<li><a href="../../food/"><strong>Food →</strong><span>Pakodas, cafés and craft beer.</span></a></li>'
-                '<li><a href="../../plan/"><strong>Plan a Day →</strong><span>Build a one-day plan.</span></a></li>'
-                '<li><a href="../../events/"><strong>Events →</strong><span>Shows, parties and festivals.</span></a></li></ul></section></div>'
-                ) % (esc(s['tag']), esc(s['name']), esc(s['area']), img,
-                     esc(s['area'] + (' · ' + s['hours'] if s['hours'] else '')), esc(s['text']),
+                '<p class="meta">%s</p><p>%s</p>%s%s<div class="lnks">%s</div></div></article></div>'
+                '<section class="related"><h2 class="sub">More in %s</h2><ul class="mini">%s</ul></section>'
+                '<section class="related"><h2 class="sub">Keep exploring</h2><ul>%s</ul></section></div>'
+                ) % (esc(it['tag']), esc(it['title']), esc(it['meta']), img, esc(it['meta']), esc(it['text']),
                      ('<ul class="mini">%s</ul>' % stores) if stores else '',
-                     ('<p class="addr">%s</p>' % esc(s['addr'])) if s['addr'] else '',
-                     esc(s['q']).replace(' ', '+'), links, others)
+                     ('<p class="addr">%s</p>' % esc(it['addr'])) if it['addr'] else '',
+                     links, esc(labels[tab]), others, rel)
 
-    def slug(n):
-        n = n.lower().replace('&', ' and ')
-        return re.sub(r'^-+|-+$', '', re.sub(r'[^a-z0-9]+', '-', n))
-
-    # ---- assemble pages ---------------------------------------------------------
     def make_head(depth, title, desc, home):
         root = '../' * depth
         h = head_t
@@ -167,7 +180,6 @@ def main():
             h = re.sub(r'<meta name="keywords"[^>]*>', '', h)
             h = re.sub(r'<script type="application/ld\+json">.*?</script>', '', h, flags=re.S)
         h = h.replace('href="logo.png"', 'href="%slogo.png"' % root)
-        h = h.replace('</head>', '')
         return h
 
     def write(path, text):
@@ -175,12 +187,10 @@ def main():
         os.makedirs(os.path.dirname(full), exist_ok=True)
         open(full, 'w', encoding='utf8').write(text)
 
-    # clean old outputs
+    # clean old generated output
     for d in route_ids + ['assets']:
         if d != 'home':
             shutil.rmtree(os.path.join(ROOT, d), ignore_errors=True)
-    shutil.rmtree(os.path.join(ROOT, 'shopping'), ignore_errors=True)
-
     os.makedirs(os.path.join(ROOT, 'assets', 'img'), exist_ok=True)
     write('assets/' + app_name, js_out)
     write('assets/' + css_name, css_out)
@@ -199,24 +209,27 @@ def main():
     for rid in route_ids:
         depth = 0 if rid == 'home' else 1
         title, desc = TITLES.get(rid, (rid.title() + ' | Gurgaon Central', None))
-        bodyhtml = '<body>' + localise(pages[rid], depth) + '</body>' if False else localise('<body>' + pages[rid] + '</body>', depth)
-        out = page_html(depth, title, desc, rid == 'home', rid, '', bodyhtml)
-        write('index.html' if rid == 'home' else rid + '/index.html', out)
+        bodyhtml = localise('<body>' + pages[rid] + '</body>', depth)
+        write('index.html' if rid == 'home' else rid + '/index.html', page_html(depth, title, desc, rid == 'home', rid, '', bodyhtml))
         urls.append('' if rid == 'home' else rid + '/')
 
-    # shopping places
-    shop_shell = pages['shopping']
-    for i, s in enumerate(shops):
-        sl = slug(s['name'])
-        main = place_main(s, i)
-        shell = re.sub(r'<main id="app">.*?</main>', lambda m: '<main id="app">' + main + '</main>', '<body>' + shop_shell + '</body>', flags=re.S)
-        shell = localise(shell, 2)
-        # place-page main uses relative ../ paths for same-depth links; images were localised by localise()
-        title = '%s, Gurgaon: hours, address & details | Gurgaon Central' % s['name']
-        desc = (s['text'][:150].rstrip() + ('…' if len(s['text']) > 150 else ''))
-        out = page_html(2, title, desc, False, 'shopping', sl, shell)
-        write('shopping/%s/index.html' % sl, out)
-        urls.append('shopping/%s/' % sl)
+    # one real page per item of every tab that has pop-up cards
+    for tab, items in tabitems.items():
+        if not items:
+            continue
+        for it in items:
+            if not it['slug']:
+                it['slug'] = slug(it['title'])
+        for it in items:
+            sl = it['slug']
+            main = place_main(tab, it, items)
+            shell = re.sub(r'<main id="app">.*?</main>', lambda m: '<main id="app">' + main + '</main>', '<body>' + pages[tab] + '</body>', flags=re.S)
+            shell = localise(shell, 2)
+            title = '%s, Gurgaon | %s | Gurgaon Central' % (it['title'], labels[tab])
+            desc = (it['text'][:150].rstrip() + ('…' if len(it['text']) > 150 else ''))
+            out = page_html(2, title, desc, False, tab, sl, shell)
+            write('%s/%s/index.html' % (tab, sl), out)
+            urls.append('%s/%s/' % (tab, sl))
 
     # images
     for n, raw in img_files.items():
