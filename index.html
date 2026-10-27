@@ -167,6 +167,12 @@ a.more:hover{transform:translate(-1px,-1px)}
 .pop h3{font-size:1.8rem}
 .pop .x{position:absolute;top:10px;right:10px;z-index:2;width:40px;height:40px;border-radius:50%;border:3px solid var(--stroke);background:var(--surface);color:var(--fg);font-size:1.3rem;font-weight:800;line-height:1;cursor:pointer}
 .pop .lnks{display:flex;flex-wrap:wrap;gap:10px}
+.pop .nav{position:absolute;top:calc(min(100vw,560px)*.325 - 22px);z-index:2;width:44px;height:44px;border-radius:50%;border:3px solid var(--stroke);background:var(--surface);color:var(--fg);font-size:1.7rem;font-weight:800;line-height:1;padding:0 0 4px;cursor:pointer;opacity:.92}
+.pop .prev{left:10px}.pop .next{right:10px}
+.pop .pcount{margin:0;color:var(--muted);font-size:.85rem;font-weight:600;text-align:center}
+.pop.slideL{animation:slideL .22s ease}.pop.slideR{animation:slideR .22s ease}
+@keyframes slideL{from{transform:translateX(34px);opacity:.3}to{transform:none;opacity:1}}
+@keyframes slideR{from{transform:translateX(-34px);opacity:.3}to{transform:none;opacity:1}}
 @keyframes popfade{from{opacity:0}to{opacity:1}}
 @keyframes popin{from{transform:translateY(14px);opacity:0}to{transform:none;opacity:1}}
 @media (max-width:760px){.pop-bg{align-items:flex-end;padding:0}.pop{width:100%;max-height:88vh;border-radius:22px 22px 0 0;border-bottom:0;animation:popup .24s ease}@keyframes popup{from{transform:translateY(40px);opacity:0}to{transform:none;opacity:1}}}
@@ -1027,22 +1033,28 @@ function initPlan(){
 /* ---------- init hooks ---------- */
 function istNow(){var p=new Intl.DateTimeFormat('en-US',{timeZone:'Asia/Kolkata',weekday:'short',hour:'numeric',minute:'numeric',hour12:false}).formatToParts(new Date()),o={};p.forEach(function(x){o[x.type]=x.value});var d={Sun:0,Mon:1,Tue:2,Wed:3,Thu:4,Fri:5,Sat:6};return {day:d[o.weekday],mins:(parseInt(o.hour,10)%24)*60+parseInt(o.minute,10)}}
 function shopStatus(s,now){if(!s.hours)return '';var ct=(s.closed||[]).indexOf(now.day)>-1,op=!ct&&now.mins>=s.open&&now.mins<s.close;return '<span class="status '+(op?'open':'closed')+'">'+(ct?'Closed today':(op?'Open now':'Closed now'))+'</span>'}
-var popLast=null;
+var popLast=null,popOrder=[],popPos=0,popX=0,popY=0;
 function closePop(){var p=document.querySelector('.pop-bg');if(!p)return;p.remove();document.body.style.overflow='';document.removeEventListener('keydown',popKey);if(popLast&&popLast.focus)popLast.focus()}
-function popKey(e){if(e.key==='Escape')closePop();else if(e.key==='Tab'){var f=document.querySelectorAll('.pop a,.pop button');if(!f.length)return;var a=f[0],z=f[f.length-1];if(e.shiftKey&&document.activeElement===a){e.preventDefault();z.focus()}else if(!e.shiftKey&&document.activeElement===z){e.preventDefault();a.focus()}}}
-function openShop(i,from){var s=SHOPS[i];if(!s)return;closePop();popLast=from;var now=istNow();
- var h='<div class="pop-bg"><div class="pop" role="dialog" aria-modal="true" aria-label="'+esc(s.name)+'"><button class="x" type="button" aria-label="Close">×</button><div class="pic">'+(s.img?'<img src="'+s.img+'" alt="'+esc(s.imgAlt||s.name)+'">':art(s.art,i,s.name))+'</div><div class="body"><div class="row-top"><span class="tag '+(s.tc||'t-sand')+'">'+esc(s.tag)+'</span>'+shopStatus(s,now)+'</div><h3>'+esc(s.name)+'</h3><p class="meta">'+esc(s.hours?s.area+' · '+s.hours:s.area)+'</p><p>'+esc(s.text)+'</p>'+(s.stores?'<ul class="mini" aria-label="Stores">'+s.stores.map(function(x){return '<li>'+esc(x)+'</li>'}).join('')+'</ul>':'')+(s.addr?'<p class="addr">'+esc(s.addr)+'</p>':'')+'<div class="lnks"><a class="more" href="'+maps(s.q)+'" target="_blank" rel="noopener">Open in Maps →</a>'+(s.links||[]).map(function(l){return '<a class="more" href="'+l[1]+'" target="_blank" rel="noopener">'+esc(l[0])+'</a>'}).join('')+'</div></div></div></div>';
- document.body.insertAdjacentHTML('beforeend',h);document.body.style.overflow='hidden';var bg=document.querySelector('.pop-bg');
- bg.addEventListener('click',function(e){if(e.target===bg||e.target.closest('.x'))closePop()});document.addEventListener('keydown',popKey);bg.querySelector('.x').focus()}
+function popKey(e){if(e.key==='Escape')closePop();else if(e.key==='ArrowRight')goPop(1);else if(e.key==='ArrowLeft')goPop(-1);else if(e.key==='Tab'){var f=document.querySelectorAll('.pop a,.pop button');if(!f.length)return;var a=f[0],z=f[f.length-1];if(e.shiftKey&&document.activeElement===a){e.preventDefault();z.focus()}else if(!e.shiftKey&&document.activeElement===z){e.preventDefault();a.focus()}}}
+function popInner(i){var s=SHOPS[i],now=istNow(),multi=popOrder.length>1;
+ return '<button class="x" type="button" aria-label="Close">×</button>'+(multi?'<button class="nav prev" type="button" aria-label="Previous place">‹</button><button class="nav next" type="button" aria-label="Next place">›</button>':'')+'<div class="pic">'+(s.img?'<img src="'+s.img+'" alt="'+esc(s.imgAlt||s.name)+'">':art(s.art,i,s.name))+'</div><div class="body"><div class="row-top"><span class="tag '+(s.tc||'t-sand')+'">'+esc(s.tag)+'</span>'+shopStatus(s,now)+'</div><h3>'+esc(s.name)+'</h3><p class="meta">'+esc(s.hours?s.area+' · '+s.hours:s.area)+'</p><p>'+esc(s.text)+'</p>'+(s.stores?'<ul class="mini" aria-label="Stores">'+s.stores.map(function(x){return '<li>'+esc(x)+'</li>'}).join('')+'</ul>':'')+(s.addr?'<p class="addr">'+esc(s.addr)+'</p>':'')+'<div class="lnks"><a class="more" href="'+maps(s.q)+'" target="_blank" rel="noopener">Open in Maps →</a>'+(s.links||[]).map(function(l){return '<a class="more" href="'+l[1]+'" target="_blank" rel="noopener">'+esc(l[0])+'</a>'}).join('')+'</div>'+(multi?'<p class="pcount" aria-live="polite">'+(popPos+1)+' of '+popOrder.length+' · swipe or use the arrows</p>':'')+'</div>'}
+function goPop(d){if(popOrder.length<2||!document.querySelector('.pop'))return;popPos=(popPos+d+popOrder.length)%popOrder.length;var p=document.querySelector('.pop'),i=popOrder[popPos];p.innerHTML=popInner(i);p.setAttribute('aria-label',SHOPS[i].name);p.scrollTop=0;p.classList.remove('slideL','slideR');void p.offsetWidth;p.classList.add(d>0?'slideL':'slideR');var n=p.querySelector(d>0?'.next':'.prev');if(n)n.focus({preventScroll:true})}
+function openShop(i,from,order){var s=SHOPS[i];if(!s)return;closePop();popLast=from;popOrder=order&&order.length?order:[i];popPos=Math.max(0,popOrder.indexOf(i));
+ document.body.insertAdjacentHTML('beforeend','<div class="pop-bg"><div class="pop" role="dialog" aria-modal="true" aria-label="'+esc(s.name)+'">'+popInner(i)+'</div></div>');document.body.style.overflow='hidden';var bg=document.querySelector('.pop-bg'),p=bg.querySelector('.pop');
+ bg.addEventListener('click',function(e){if(e.target===bg||e.target.closest('.x'))closePop();else if(e.target.closest('.prev'))goPop(-1);else if(e.target.closest('.next'))goPop(1)});
+ p.addEventListener('touchstart',function(e){var t=e.changedTouches[0];popX=t.clientX;popY=t.clientY},{passive:true});
+ p.addEventListener('touchend',function(e){var t=e.changedTouches[0],dx=t.clientX-popX,dy=t.clientY-popY;if(Math.abs(dx)>50&&Math.abs(dx)>Math.abs(dy)*1.5)goPop(dx<0?1:-1)},{passive:true});
+ document.addEventListener('keydown',popKey);bg.querySelector('.x').focus()}
 function initShop(){
- var grid=document.getElementById('shop-grid'),count=document.getElementById('shop-count'),filter='all';
+ var popOrder0=[],grid=document.getElementById('shop-grid'),count=document.getElementById('shop-count'),filter='all';
  function render(){var now=istNow(),list=SHOPS.filter(function(s){return filter==='all'||s.group===filter});
   grid.innerHTML=list.map(function(s,i){var st=shopStatus(s,now);
    return '<article class="card shopcard" role="button" tabindex="0" aria-haspopup="dialog" data-i="'+SHOPS.indexOf(s)+'"><div class="pic">'+(s.img?'<img class="photo" src="'+s.img+'" alt="'+esc(s.imgAlt||s.name)+'" loading="lazy">':art(s.art,i,s.name))+'</div><div class="body"><div class="row-top"><span class="tag '+(s.tc||'t-sand')+'">'+esc(s.tag)+'</span>'+st+'</div><h3>'+esc(s.name)+'</h3><p class="meta">'+esc(s.area)+'</p><p class="tease">'+esc(s.text)+'</p><span class="peek">Tap for details →</span></div></article>'}).join('');
+  popOrder0=list.map(function(x){return SHOPS.indexOf(x)});
   count.textContent='Showing '+list.length+' of '+SHOPS.length+' places'}
  document.getElementById('shop-filters').addEventListener('click',function(e){var b=e.target.closest('button[data-f]');if(!b)return;filter=b.getAttribute('data-f');document.querySelectorAll('#shop-filters button').forEach(function(x){x.setAttribute('aria-pressed',x===b?'true':'false')});render()});
- grid.addEventListener('click',function(e){if(e.target.closest('a'))return;var c=e.target.closest('.shopcard');if(c)openShop(+c.getAttribute('data-i'),c)});
- grid.addEventListener('keydown',function(e){if(e.key!=='Enter'&&e.key!==' ')return;var c=e.target.closest('.shopcard');if(c){e.preventDefault();openShop(+c.getAttribute('data-i'),c)}});
+ grid.addEventListener('click',function(e){if(e.target.closest('a'))return;var c=e.target.closest('.shopcard');if(c)openShop(+c.getAttribute('data-i'),c,popOrder0)});
+ grid.addEventListener('keydown',function(e){if(e.key!=='Enter'&&e.key!==' ')return;var c=e.target.closest('.shopcard');if(c){e.preventDefault();openShop(+c.getAttribute('data-i'),c,popOrder0)}});
  render()}
 function initTip(){document.getElementById('tip-form').addEventListener('submit',function(e){e.preventDefault();var f=e.target,name=f.elements['name'].value.trim(),spot=f.elements['spot'].value.trim(),why=f.elements['why'].value.trim(),cat=f.elements['cat'].value,res=document.getElementById('tip-result'),btn=f.querySelector('button[type="submit"]');
  if(!spot){res.textContent='Add the place name and area first.';f.elements['spot'].focus();return}
