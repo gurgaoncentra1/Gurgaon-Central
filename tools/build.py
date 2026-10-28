@@ -17,7 +17,7 @@ from playwright.sync_api import sync_playwright
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SRC = os.path.join(ROOT, 'src', 'site.html')
-SITE_URL = None
+SITE_URL = 'https://gurgaoncentral.in/'  # the live address; override with --site-url
 if '--site-url' in sys.argv:
     SITE_URL = sys.argv[sys.argv.index('--site-url') + 1].rstrip('/') + '/'
 
@@ -200,6 +200,11 @@ def main():
     def page_html(depth, title, desc, home, route, place, bodyhtml):
         root = '../' * depth
         h = make_head(depth, title, desc, home)
+        if SITE_URL:
+            path = '' if route == 'home' else (route + '/' + (place + '/' if place else ''))
+            h += '<link rel="canonical" href="%s%s"><meta property="og:url" content="%s%s">' % (SITE_URL, path, SITE_URL, path)
+            if home:
+                h = h.replace('"name": "Gurgaon Central",', '"name": "Gurgaon Central", "url": "%s",' % SITE_URL, 1)
         h += FONTS
         h += '<link rel="stylesheet" href="%sassets/%s">' % (root, css_name)
         h += '<script>var __MPA=true,__ROOT=%s,__ROUTE=%s,__PLACE=%s;</script>' % (json.dumps(root), json.dumps(route), json.dumps(place))
