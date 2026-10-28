@@ -21,7 +21,7 @@ SITE_URL = None
 if '--site-url' in sys.argv:
     SITE_URL = sys.argv[sys.argv.index('--site-url') + 1].rstrip('/') + '/'
 
-RELATED = {'shopping': ['food', 'plan', 'events', 'quests'], 'food': ['shopping', 'gems', 'plan', 'events'], 'education': ['travel', 'gems', 'blogs', 'tip'], 'gems': ['quests', 'food', 'travel', 'plan'], 'events': ['quests', 'plan', 'food', 'shopping'], 'quests': ['events', 'plan', 'gems', 'food'], 'plan': ['shopping', 'food', 'quests', 'travel'], 'travel': ['plan', 'gems', 'shopping', 'education'], 'blogs': ['gems', 'food', 'tip', 'events'], 'tip': ['blogs', 'gems', 'food', 'shopping']}
+RELATED = {'shopping': ['plan', 'food', 'events', 'quests'], 'food': ['plan', 'shopping', 'gems', 'events'], 'education': ['plan', 'travel', 'gems', 'blogs'], 'gems': ['plan', 'quests', 'food', 'travel'], 'events': ['plan', 'quests', 'food', 'shopping'], 'quests': ['plan', 'events', 'gems', 'food'], 'plan': ['shopping', 'food', 'quests', 'travel'], 'travel': ['plan', 'gems', 'shopping', 'education'], 'blogs': ['plan', 'gems', 'food', 'events'], 'tip': ['plan', 'blogs', 'gems', 'food']}
 
 TITLES = {
     'home': ('Gurgaon Central | Your Guide to Gurgaon (Gurugram)', None),
