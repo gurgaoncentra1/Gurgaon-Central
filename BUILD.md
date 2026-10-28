@@ -11,3 +11,8 @@ Generated (do not edit by hand): `index.html`, `<tab>/index.html`,
 
 After every change to `src/site.html`: run the build, then commit `src/` plus the generated files together.
 Needs Python 3 and Playwright (Chromium).
+
+## Events expire by themselves
+Every dated event in `src/site.html` (Events page) carries an `end:'YYYY-MM-DD'` field. The page hides an event
+automatically once that date has passed (India time), so nothing has to be removed by hand. When adding a new
+dated event, always include `end`. Undated cards ("Concert season", "Theatre and stage shows") have no `end`.
