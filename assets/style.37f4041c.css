@@ -340,3 +340,10 @@ footer .social a:hover,footer .social a:focus-visible{background:var(--paper);co
   .doodle{display:none}
 }
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.track{animation:none}.bob{animation:none}.card,.tile,.btn,.moods a{transition:none}.card:hover,.tile:hover,.btn:hover,.moods a:hover{transform:none}}
+.faq{margin-top:56px}
+.faq details{border:2.5px solid var(--stroke);border-radius:16px;background:var(--surface);box-shadow:4px 4px 0 var(--shadow);margin-bottom:14px}
+.faq summary{cursor:pointer;padding:16px 20px;font-weight:800;font-size:1.05rem;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:14px}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:'+';font-size:1.5rem;line-height:1;flex:none}
+.faq details[open] summary::after{content:'\2013'}
+.faq details p{padding:0 20px 18px;color:var(--muted);max-width:75ch}

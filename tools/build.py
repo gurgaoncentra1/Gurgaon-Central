@@ -43,8 +43,8 @@ TITLES = {
                'How to get around Gurgaon (Gurugram): metro, cabs, buses, autos and sample days.'),
     'blogs': ('Blogs: Longer Reads on Gurgaon | Gurgaon Central',
               'Longer reads about Gurgaon (Gurugram) from the Gurgaon Central blogs.'),
-    'tip': ('Share a Tip: Tell Us About a Gurgaon Spot | Gurgaon Central',
-            'Know a place in Gurgaon (Gurugram) we missed? Send us a tip.'),
+    'tip': ('Share a Tip & Gurgaon FAQs | Gurgaon Central',
+            'Know a place in Gurgaon (Gurugram) we missed? Send us a tip, and read answers to common questions about things to do in Gurgaon.'),
 }
 
 img_files = {}  # filename -> bytes
