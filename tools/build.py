@@ -162,7 +162,7 @@ def main():
                 '<section class="related"><h2 class="sub">More in %s</h2><ul class="mini">%s</ul></section>'
                 '<section class="related"><h2 class="sub">Keep exploring</h2><ul>%s</ul></section></div>'
                 ) % (esc(it['tag']), esc(it['title']), esc(it['meta']), img, esc(it['meta']), esc(it['text']),
-                     ('<ul class="mini">%s</ul>' % stores) if stores else '',
+                     '',  # store chips intentionally not shown
                      ('<p class="addr">%s</p>' % esc(it['addr'])) if it['addr'] else '',
                      links, esc(labels[tab]), others, rel)
 
