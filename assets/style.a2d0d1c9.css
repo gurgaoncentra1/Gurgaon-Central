@@ -257,6 +257,7 @@ a.more.alt{background:var(--teal)}
 .legend li{display:flex;align-items:center;gap:10px}
 .legend .dot{width:18px;height:18px;border-radius:50%;border:2.5px solid var(--ink);display:inline-block}
 @media (max-width:760px){.map-wrap{grid-template-columns:minmax(0,1fr)}.map-panel{position:static}.mv{aspect-ratio:1/1.05}}@media (max-width:760px){.tag{font-size:.8rem;padding:4px 12px}nav.menu a{padding:10px 15px;font-size:1rem}.mv{aspect-ratio:1/1.2}.card .pic.big{aspect-ratio:400/290}}
+@media (max-width:760px) and (pointer:coarse){.pin::before{content:'';position:absolute;inset:-4px -8px -2px}}
 @media (prefers-reduced-motion:reduce){.pin svg{transition:none}}
 /* sticker pack */
 .pack.stickers{grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:26px 14px}
