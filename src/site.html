@@ -597,13 +597,14 @@ var NEWT=[
 ];
 
 /* ---------- pages ---------- */
+var DWL=todayIST()<='2026-11-11'; /* Diwali theme on the Events page until Bhai Dooj (Nov 11) */
 var ROUTES=[
  {id:'home',label:'Home'},
  {id:'shopping',label:'Shopping',bg:'var(--teal)',fg:'var(--ink)',eyebrow:'Page 1',title:'Shopping',tag:'Retail therapy, but make it Gurgaon.',hand:'twelve spots, zero boring ones',tile:'mall',stk:['jhumka','bangles'],blurb:'Malls, markets and flea finds.',tc:T},
  {id:'food',label:'Food',bg:'var(--coral)',fg:'var(--ink)',eyebrow:'Page 2',title:'Food',tag:'Eat. Post. Repeat.',hand:'pakoda first, craft beer later',tile:'stall',stk:['chai','samosa'],blurb:'Pakodas, cafés and craft beer.',tc:PK},
  {id:'education',label:'Education',bg:'var(--sand)',fg:'var(--ink)',eyebrow:'Page 3',title:'Education',tag:'Campus lore, ranked by vibes and placements.',hand:'study era unlocked',tile:'tower',stk:['shades','sparkle'],blurb:'B-schools and big green campuses.',tc:S},
  {id:'gems',label:'Hidden Gems',bg:'var(--navy)',fg:'var(--paper)',eyebrow:'Page 4',title:'Hidden Gems',tag:'Off the algorithm. Older than the skyline.',hand:'no crowds, big lore',tile:'stepwell',stk:['nazar','diya'],blurb:'Stepwells, forts and old shops.',tc:MI},
- {id:'events',label:'Events',bg:'var(--tan)',fg:'var(--ink)',eyebrow:'Page 5',title:'Events',tag:'Your calendar called. It wants garba.',hand:'dates change every year!',tile:'garba',stk:['marigold','kite'],blurb:'Navratri nights, gigs and shows.',tc:L},
+ {id:'events',label:'Events',bg:'var(--tan)',fg:'var(--ink)',eyebrow:'Page 5',title:'Events',tag:DWL?'Diyas lit. Calendar full.':'Your calendar called. It wants garba.',hand:'dates change every year!',tile:'garba',stk:DWL?['diya','marigold']:['marigold','kite'],blurb:DWL?'Diwali lights, gigs and shows.':'Navratri nights, gigs and shows.',tc:L},
  {id:'quests',label:'Sidequests',bg:'var(--teal)',fg:'var(--ink)',eyebrow:'Page 6',title:'Sidequests',tag:'Detours worth taking.',hand:'pick one this weekend',tile:'pin',stk:['bracelet','sparkle'],blurb:'Escape rooms, go-karts and gaming arenas.',tc:PK},
  {id:'plan',label:'Plan a Day',bg:'var(--coral)',fg:'var(--ink)',eyebrow:'Page 7',title:'Plan a Day',tag:'Tell us the vibe. We build the day.',hand:'your day, your pace',tile:'pin',stk:['auto','sparkle'],blurb:'Tell us your mood and we’ll build a one-day plan of places to visit.',tc:T},
  {id:'travel',label:'Travel',bg:'var(--sand)',fg:'var(--ink)',eyebrow:'Page 8',title:'Travel',tag:'Get around like you live here.',hand:'metro, cab or auto?',tile:'metro',stk:['auto','kite'],blurb:'Getting around and sample days.',tc:T},
