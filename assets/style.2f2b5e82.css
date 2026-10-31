@@ -347,3 +347,4 @@ footer .social a:hover,footer .social a:focus-visible{background:var(--paper);co
 .faq summary::after{content:'+';font-size:1.5rem;line-height:1;flex:none}
 .faq details[open] summary::after{content:'\2013'}
 .faq details p{padding:0 20px 18px;color:var(--muted);max-width:75ch}
+.rs{font-family:"Bricolage Grotesque","Segoe UI","Noto Sans",system-ui,sans-serif;font-weight:700}
