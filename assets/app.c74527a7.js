@@ -212,14 +212,17 @@ var NEWT=[
 
 /* ---------- pages ---------- */
 var DWL=todayIST()<='2026-11-11'; /* Diwali theme on the Events page until Bhai Dooj (Nov 11) */
+var TILEIMG_GEMS=(ROOT+'assets/img/0f704bd361aa.webp');
+var TILEIMG_EVENTS=(ROOT+'assets/img/0bd1bf480b9a.webp');
+var TILEIMG_QUESTS=(ROOT+'assets/img/1e8beff5fb51.webp');
 var ROUTES=[
  {id:'home',label:'Home'},
  {id:'shopping',label:'Shopping',bg:'var(--teal)',fg:'var(--ink)',eyebrow:'Page 1',title:'Shopping',tag:'Retail therapy, but make it Gurgaon.',hand:'twelve spots, zero boring ones',tile:'mall',stk:['jhumka','bangles'],blurb:'Malls, markets and flea finds.',tc:T},
  {id:'food',label:'Food',bg:'var(--coral)',fg:'var(--ink)',eyebrow:'Page 2',title:'Food',tag:'Eat. Post. Repeat.',hand:'pakoda first, craft beer later',tile:'stall',stk:['chai','samosa'],blurb:'Pakodas, cafés and craft beer.',tc:PK},
  {id:'education',label:'Education',bg:'var(--sand)',fg:'var(--ink)',eyebrow:'Page 3',title:'Education',tag:'Campus lore, ranked by vibes and placements.',hand:'study era unlocked',tile:'tower',stk:['shades','sparkle'],blurb:'B-schools and big green campuses.',tc:S},
- {id:'gems',label:'Hidden Gems',bg:'var(--navy)',fg:'var(--paper)',eyebrow:'Page 4',title:'Hidden Gems',tag:'Off the algorithm. Older than the skyline.',hand:'no crowds, big lore',tile:'stepwell',stk:['nazar','diya'],blurb:'Stepwells, forts and old shops.',tc:MI},
- {id:'events',label:'Events',bg:'var(--tan)',fg:'var(--ink)',eyebrow:'Page 5',title:'Events',tag:DWL?'Diyas lit. Calendar full.':'Your calendar called. It wants garba.',hand:'dates change every year!',tile:'garba',stk:DWL?['diya','marigold']:['marigold','kite'],blurb:DWL?'Diwali lights, gigs and shows.':'Navratri nights, gigs and shows.',tc:L},
- {id:'quests',label:'Sidequests',bg:'var(--teal)',fg:'var(--ink)',eyebrow:'Page 6',title:'Sidequests',tag:'Detours worth taking.',hand:'pick one this weekend',tile:'pin',stk:['bracelet','sparkle'],blurb:'Escape rooms, go-karts and gaming arenas.',tc:PK},
+ {id:'gems',cover:TILEIMG_GEMS,coverAlt:'Hidden Gems sticker with a teal diamond, binoculars and sparkles',label:'Hidden Gems',bg:'var(--navy)',fg:'var(--paper)',eyebrow:'Page 4',title:'Hidden Gems',tag:'Off the algorithm. Older than the skyline.',hand:'no crowds, big lore',tile:'stepwell',stk:['nazar','diya'],blurb:'Stepwells, forts and old shops.',tc:MI},
+ {id:'events',cover:TILEIMG_EVENTS,coverAlt:'Events sticker with tickets, a disco ball and music notes',label:'Events',bg:'var(--tan)',fg:'var(--ink)',eyebrow:'Page 5',title:'Events',tag:DWL?'Diyas lit. Calendar full.':'Your calendar called. It wants garba.',hand:'dates change every year!',tile:'garba',stk:DWL?['diya','marigold']:['marigold','kite'],blurb:DWL?'Diwali lights, gigs and shows.':'Navratri nights, gigs and shows.',tc:L},
+ {id:'quests',cover:TILEIMG_QUESTS,coverAlt:'Sidequests sticker with a folded map, location pin and compass',label:'Sidequests',bg:'var(--teal)',fg:'var(--ink)',eyebrow:'Page 6',title:'Sidequests',tag:'Detours worth taking.',hand:'pick one this weekend',tile:'pin',stk:['bracelet','sparkle'],blurb:'Escape rooms, go-karts and gaming arenas.',tc:PK},
  {id:'plan',label:'Plan a Day',bg:'var(--coral)',fg:'var(--ink)',eyebrow:'Page 7',title:'Plan a Day',tag:'Tell us the vibe. We build the day.',hand:'your day, your pace',tile:'pin',stk:['auto','sparkle'],blurb:'Tell us your mood and we’ll build a one-day plan of places to visit.',tc:T},
  {id:'travel',label:'Travel',bg:'var(--sand)',fg:'var(--ink)',eyebrow:'Page 8',title:'Travel',tag:'Get around like you live here.',hand:'metro, cab or auto?',tile:'metro',stk:['auto','kite'],blurb:'Getting around and sample days.',tc:T},
  {id:'blogs',label:'Blogs',bg:'var(--navy)',fg:'var(--paper)',eyebrow:'Page 9',title:'Blogs',tag:'Longer reads, straight from us.',hand:'grab a chai first',tile:'pin',stk:['diya','sparkle'],blurb:'Longer reads from our own blogs.',tc:PK},
@@ -307,7 +310,7 @@ function initFilter(items){
 
 var PAGES={
 home:function(){
- var tiles=ROUTES.filter(function(r){return ['gems','events','quests'].indexOf(r.id)>-1}).map(function(r,i){return '<a class="tile" href="#'+r.id+'" style="background:'+r.tc+'"><div class="pic">'+art(r.tile,i,r.title)+'</div><div class="body"><h3>'+r.title+'</h3><p>'+r.blurb+'</p></div></a>'}).join('');
+ var tiles=ROUTES.filter(function(r){return ['gems','events','quests'].indexOf(r.id)>-1}).map(function(r,i){return '<a class="tile" href="#'+r.id+'" style="background:'+r.tc+'"><div class="pic">'+(r.cover?'<img src="'+r.cover+'" alt="'+r.coverAlt+'" width="400" height="260" loading="lazy">':art(r.tile,i,r.title))+'</div><div class="body"><h3>'+r.title+'</h3><p>'+r.blurb+'</p></div></a>'}).join('');
  return '<section class="hero"><svg class="doodle" style="right:4%;top:18px" width="70" height="70" viewBox="0 0 70 70" aria-hidden="true"><path d="M35 4L42 28L66 35L42 42L35 66L28 42L4 35L28 28Z" fill="#F6F1E9" stroke="#22262B" stroke-width="3" stroke-linejoin="round"/></svg>'+
  '<div class="wrap grid"><div><span class="sticker">City guide · Delhi NCR</span><h1>Gurgaon, but make it main character.</h1><span class="hand">गुरुग्राम · the guru\'s city</span><p class="sub">Malls and flea markets, campus lore and hidden stepwells, garba nights and pottery wheels. Your guide to the real Gurgaon.</p>'+
  '<div class="cta-row"><a class="btn" href="#map-section">Explore places</a><a class="btn light" href="#plan">Plan a Day</a></div>'+
