@@ -267,6 +267,7 @@ a.more.alt{background:var(--teal)}
  header.top.open nav.menu{display:grid}
  nav.menu a{text-align:center;border-color:var(--stroke);background:var(--surface)}
 }
+.catcard{cursor:pointer}.catcard:focus-visible{outline:3px solid var(--teal);outline-offset:3px}
 @media (prefers-reduced-motion:reduce){.pin svg{transition:none}}
 /* sticker pack */
 .pack.stickers{grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:26px 14px}
