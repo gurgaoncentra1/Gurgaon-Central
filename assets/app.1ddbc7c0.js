@@ -179,6 +179,9 @@ var EVQIMG10=(ROOT+'assets/img/9ef8a4bde858.webp');
 var EVQIMG11=(ROOT+'assets/img/789401399b06.webp');
 var EVQIMG12=(ROOT+'assets/img/cede7a7ba14e.webp');
 var EVQIMG13=(ROOT+'assets/img/d9e22c6a542b.webp');
+var CATIMG1=(ROOT+'assets/img/f283bb55f963.webp');
+var CATIMG2=(ROOT+'assets/img/a8b510343dc6.webp');
+var CATIMG3=(ROOT+'assets/img/75f948110dfd.webp');
 var NEWQ=[
  {group:"games",img:EVQIMG6,imgAlt:"Neon-lit entrance to The Hidden Hour escape rooms",art:"tower",k:1,tag:"Escape rooms",tc:"t-coral",title:"Escape Rooms",meta:"Hidden Hour: M3M and MGF Metropolis",text:"Race the clock to escape a themed room. Try Mystery Rooms or The Hidden Hour.",links:[["Details ↗","https://www.thehiddenhour.com/gurugram/mgf-metropolis-mall"]]},
  {group:"karts",img:EVQIMG7,imgAlt:"Go-kart track lined with tyres at F9 Go Karting",art:"car",k:2,tag:"Go-karting",tc:"t-teal",title:"F9 Go Karting",meta:"1 PM – 10 PM · Sector 59",text:"A multi-level, tech-driven go-karting track that suits groups.",links:[["Details ↗","https://f9gokarting.com/"]]},
@@ -390,10 +393,10 @@ events:function(){
   {img:EVQIMG1,imgAlt:'Carved jack-o\'-lanterns and small pumpkins on a bar counter',art:'garba',tag:'Oct 31',tc:'t-coral',end:'2026-10-31',title:'Halloween parties',text:'Costume nights, spooky club parties and themed dinners at bars, cafés and clubs across the city on Halloween.'},
   {img:EVQIMG2,imgAlt:'Lit clay diyas glowing among colourful rangoli',art:'lights',k:1,tag:'Nov 6–11',tc:'t-sand',end:'2026-11-11',title:'Diwali events',text:'Diwali falls on Sunday, Nov 8. Expect lights, sweets, diya markets and festive crowds at Sadar Bazaar, Galleria and the malls from Dhanteras (Nov 6) to Bhai Dooj (Nov 11).'},
   {img:EVQIMG4,imgAlt:'Rows of red velvet seats facing a theatre stage',art:'theatre',k:3,tag:'Year round',tc:'t-paper',filter:'comedy',title:'Theatre and stage shows',text:'Plays, comedy nights and live stage shows run at venues across the city through the year. Check the venue or ticket page for what is on.'},
-  {art:'theatre',k:1,tag:'Browse',tc:'t-coral',filter:'comedy',title:'Comedy shows',text:'Stand-up nights and live comedy at clubs and cafés across Gurugram.'},
+  {img:CATIMG1,imgAlt:'A comedian posing in front of a cheering crowd with hands raised under stage lights',art:'theatre',k:1,tag:'Browse',tc:'t-coral',filter:'comedy',title:'Comedy shows',text:'Stand-up nights and live comedy at clubs and cafés across Gurugram.'},
   {img:EVQIMG3,imgAlt:'Open-air concert stage with fireworks and a crowd',art:'concert',k:0,tag:'Browse',tc:'t-teal',filter:'music',title:'Music & concerts',text:'Live gigs, DJ nights and open-air concerts happening around the city.'},
-  {art:'lights',k:2,tag:'Browse',tc:'t-sand',filter:'party',title:'Parties & festivals',text:'Festive parties, club nights and festivals across Gurugram.'},
-  {art:'pin',k:3,tag:'Browse',tc:'t-paper',filter:'more',title:'Workshops & more',text:'Workshops, runs, dining experiences and other events beyond the stage.'}
+  {img:CATIMG2,imgAlt:'Friends laughing and throwing colour powder at a Holi celebration',art:'lights',k:2,tag:'Browse',tc:'t-sand',filter:'party',title:'Parties & festivals',text:'Festive parties, club nights and festivals across Gurugram.'},
+  {img:CATIMG3,imgAlt:'A row of people shaping clay on pottery wheels in a workshop',art:'pin',k:3,tag:'Browse',tc:'t-paper',filter:'more',title:'Workshops & more',text:'Workshops, runs, dining experiences and other events beyond the stage.'}
  ])+'</div>')},
 plan:function(){return page('plan',planHTML())},
 travel:function(){
