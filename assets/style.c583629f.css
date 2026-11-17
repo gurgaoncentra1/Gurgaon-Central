@@ -268,6 +268,14 @@ a.more.alt{background:var(--teal)}
  nav.menu a{text-align:center;border-color:var(--stroke);background:var(--surface)}
 }
 .catcard{cursor:pointer}.catcard:focus-visible{outline:3px solid var(--teal);outline-offset:3px}
+.helps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.helps a{display:flex;flex-direction:column;gap:6px;height:100%;padding:18px 20px;border:2.5px solid var(--stroke);border-radius:18px;background:var(--surface);color:var(--fg);text-decoration:none;box-shadow:5px 5px 0 var(--shadow)}
+.helps a:hover{transform:translate(-2px,-2px);box-shadow:7px 7px 0 var(--shadow)}
+.helps a:focus-visible{outline:3px solid var(--teal);outline-offset:3px}
+.helps .hn{font-family:var(--font-display,inherit);font-size:2.2rem;font-weight:800;line-height:1;color:var(--coral)}
+.helps .hl{font-weight:700;color:var(--fg)}
+@media (max-width:760px){.helps{grid-template-columns:1fr 1fr;gap:14px}.helps a{padding:14px 16px}.helps .hn{font-size:1.9rem}}
+@media (prefers-reduced-motion:reduce){.helps a{transition:none}.helps a:hover{transform:none}}
 @media (prefers-reduced-motion:reduce){.pin svg{transition:none}}
 /* sticker pack */
 .pack.stickers{grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:26px 14px}
