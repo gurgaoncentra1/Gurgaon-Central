@@ -112,7 +112,7 @@ def main():
               c.querySelectorAll('script,style,.pop-bg,link').forEach(e=>e.remove());
               c.querySelectorAll('.status').forEach(e=>e.remove());
               return c.innerHTML}''')
-            tabitems[rid] = pg.evaluate('''(rid)=>(window.__GC.getTAB()[rid]||[]).map(o=>({title:o.title,tag:o.tag||"",meta:o.meta||"",text:o.text||"",stores:o.stores||[],addr:o.addr||"",href:o.href||"",cta:o.cta||"",links:o.links||[],img:o.img||"",imgAlt:o.imgAlt||"",slug:o.pop.s}))''', rid)
+            tabitems[rid] = pg.evaluate('''(rid)=>(window.__GC.getTAB()[rid]||[]).map(o=>({title:o.title,tag:o.tag||"",meta:o.meta||"",text:o.text||"",stores:o.stores||[],addr:o.addr||"",href:o.href||"",cta:o.cta||"",links:o.links||[],body:o.body||[],blogUrl:o.blogUrl||"",img:o.img||"",imgAlt:o.imgAlt||"",slug:o.pop.s}))''', rid)
         br.close()
     def slug(n):
         import unicodedata
@@ -142,7 +142,7 @@ def main():
         'title': x['name'], 'tag': x['tag'], 'meta': x['area'] + (' \u00b7 ' + x['hours'] if x['hours'] else ''),
         'text': x['text'], 'stores': x['stores'], 'addr': x['addr'], 'href': '', 'cta': '',
         'links': [['Open in Maps \u2192', 'https://www.google.com/maps/search/?api=1&query=' + x['q'].replace(' ', '+')]] + x['links'],
-        'img': x['img'], 'imgAlt': x['imgAlt'], 'slug': None} for x in shops]
+        'img': x['img'], 'imgAlt': x['imgAlt'], 'body': [], 'blogUrl': '', 'slug': None} for x in shops]
 
     labels = {r['id']: r['label'] for r in gc['routes']}
     blurbs = {r['id']: (r['blurb'] or r['tag']) for r in gc['routes']}
@@ -156,6 +156,21 @@ def main():
             links += '<a class="more" href="%s" target="_blank" rel="noopener">%s</a>' % (esc(it['href']), esc(it['cta'] or 'Open in Maps \u2192'))
         links += ''.join('<a class="more" href="%s" target="_blank" rel="noopener">%s</a>' % (esc(l[1]), esc(l[0])) for l in it['links'] if not l[1].startswith('#'))
         rel = ''.join('<li><a href="../../%s/"><strong>%s \u2192</strong><span>%s</span></a></li>' % (k, esc(labels[k]), esc(blurbs[k])) for k in [tab] + RELATED[tab][:3])
+        if tab == 'blogs':
+            paras = ''.join(('<h4>%s</h4>' % esc(p[3:])) if p.startswith('## ') else ('<p>%s</p>' % esc(p)) for p in it['body']) or '<p>%s</p>' % esc(it['text'])
+            if not it['body'] and it['blogUrl']:
+                links += '<a class="more" href="%s" target="_blank" rel="noopener">Read the full post \u2197</a>' % esc(it['blogUrl'])
+            links += ''
+            end = ('<div class="blogend"><p>Want more? Read more of our blogs here.</p><div class="lnks">'
+                   '<a class="more" href="https://gurgaoncentra1.blogspot.com/" target="_blank" rel="noopener">Our Blogspot blog \u2197</a>'
+                   '<a class="more" href="https://www.quora.com/profile/Gurgaon-Central-1" target="_blank" rel="noopener">Our Quora profile \u2197</a></div></div>')
+            rel = ''.join('<li><a href="../../%s/"><strong>%s \u2192</strong><span>%s</span></a></li>' % (k, esc(labels[k]), esc(blurbs[k])) for k in [tab] + RELATED[tab][:3])
+            return ('<section class="phero" style="--pg-bg:var(--teal);--pg-fg:var(--ink)"><div class="wrap"><span class="sticker">%s</span><h1>%s</h1>'
+                    '<p class="tagline">%s</p></div></section><div class="wrap section"><div class="cards"><article class="card"><div class="pic">%s</div><div class="body">'
+                    '%s<div class="lnks">%s</div>%s</div></article></div>'
+                    '<section class="related"><h2 class="sub">More in %s</h2><ul class="mini">%s</ul></section>'
+                    '<section class="related"><h2 class="sub">Keep exploring</h2><ul>%s</ul></section></div>'
+                    ) % (esc(it['tag']), esc(it['title']), esc(it['meta']), img, paras, links, end, esc(labels[tab]), others, rel)
         return ('<section class="phero" style="--pg-bg:var(--teal);--pg-fg:var(--ink)"><div class="wrap"><span class="sticker">%s</span><h1>%s</h1>'
                 '<p class="tagline">%s</p></div></section><div class="wrap section"><div class="cards"><article class="card"><div class="pic">%s</div><div class="body">'
                 '<p class="meta">%s</p><p>%s</p>%s%s<div class="lnks">%s</div></div></article></div>'

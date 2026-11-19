@@ -276,6 +276,8 @@ a.more.alt{background:var(--teal)}
 .helps .hl{font-weight:700;color:var(--fg)}
 @media (max-width:760px){.helps{grid-template-columns:1fr 1fr;gap:14px}.helps a{padding:14px 16px}.helps .hn{font-size:1.9rem}}
 @media (prefers-reduced-motion:reduce){.helps a{transition:none}.helps a:hover{transform:none}}
+.pop .blogtext p{margin:0 0 12px;line-height:1.7}.pop .blogtext h4{margin:18px 0 6px;font-size:1.1rem}
+.pop .blogend{border-top:2px dashed var(--stroke);margin-top:8px;padding-top:14px}.pop .blogend p{margin:0 0 10px;font-weight:700}
 @media (prefers-reduced-motion:reduce){.pin svg{transition:none}}
 /* sticker pack */
 .pack.stickers{grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:26px 14px}
